@@ -62,7 +62,8 @@ class CheckoutSolution:
         sku_count = Counter(skus)
 
         # Handle group offers
-        group_count = len([s for s in sku_count if s in GROUP])
+        group_count = sum([n for s, n in sku_count.items() if s in GROUP])
+        print(f"Group count: {group_count}")
         if group_count >= GROUP_NUM:
             total += (group_count // GROUP_NUM) * GROUP_PRICE
             for sku in GROUP:
@@ -83,7 +84,7 @@ class CheckoutSolution:
         apply_buy_product_get_other_free(3, "U")
 
 
-        # Main pricing loop
+        # Handle remaining items
         for sku, count in sku_count.items():
             if sku not in PRICES:
                 return ERROR_CODE
@@ -99,6 +100,7 @@ class CheckoutSolution:
             total += count * PRICES[sku]
 
         return total
+
 
 
 
