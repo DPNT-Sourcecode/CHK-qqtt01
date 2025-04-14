@@ -29,7 +29,7 @@ class TestCheckoutSolution:
         assert CheckoutSolution().checkout("DD") == 30
 
     def test_2es_gives_1b_free(self):
-        assert CheckoutSolution().checkout("EEB") == 110  # 1B not discounted because free B logic is not applied
+        assert CheckoutSolution().checkout("EEB") == 80
 
     def test_2e_no_b_to_discount(self):
         # 2E without B still charges 2E only
@@ -37,7 +37,7 @@ class TestCheckoutSolution:
 
     def test_e_and_multiple_b_discount_limited(self):
         # 2E can remove only one B
-        assert CheckoutSolution().checkout("EEBBB") == 155
+        assert CheckoutSolution().checkout("EEBBB") == 40 + 40 + 45
 
     def test_odd_number_of_es_and_bs(self):
         # 5E gives 2B free, 1E no additional effect
@@ -160,3 +160,4 @@ class TestCheckoutSolution:
     def test_chk_r5_062(self):
         # 4E = 2B free, 2B present, so both free: 4E = 160
         assert CheckoutSolution().checkout("EEEEBB") == 160
+
