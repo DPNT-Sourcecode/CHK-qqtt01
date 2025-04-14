@@ -40,17 +40,15 @@ class CheckoutSolution:
         free_bs = num_es // 2
         sku_count['B'] = max(0, num_bs - free_bs)
 
+        # Apply 2Fs get 1F free
+        if "F" in sku_count:
+            count_f = sku_count["F"]
+            free_f = count_f // 3
+            sku_count["F"] = count_f - free_f
+
         for sku, count in sku_count.items():
             if sku not in PRICES:
                 return ERROR_CODE
-
-            # Check for special F offer
-            if sku == "F":
-                free_fs = count // 3
-                payable_fs = count - free_fs
-                total += payable_fs * PRICES[sku]
-                continue
-
 
             # Check for special offers
             if sku in OFFERS:
@@ -64,6 +62,7 @@ class CheckoutSolution:
             total += count * PRICES[sku]
 
         return total
+
 
 
 
