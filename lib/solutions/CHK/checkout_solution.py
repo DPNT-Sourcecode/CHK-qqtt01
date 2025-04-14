@@ -44,7 +44,7 @@ OFFERS = {
 
 
 GROUP_OFFERS = {
-    ("S", "T", "X", "Y", "Z"): [(3, 45)],  # Offers for S, T, X, Y, Z: 3 for 45
+    ("S", "T", "X", "Y", "Z"): (3, 45),  # Offers for S, T, X, Y, Z: 3 for 45
 }
 
 class CheckoutSolution:
@@ -62,25 +62,21 @@ class CheckoutSolution:
         total = 0
         sku_count = Counter(skus)
 
-        def apply_buy_product_get_other_free(count, sku, free_sku = None):
-            if free_sku is None:
-                free_sku = sku
+        def apply_buy_product_get_other_free(num, sku, free_sku = None):
             if sku in sku_count and free_sku in sku_count:
-                num_free = sku_count[sku] // count
+                num_free = sku_count[sku] // num
                 sku_count[free_sku] = max(0, sku_count[free_sku] - num_free)
 
         apply_buy_product_get_other_free(2, "E", "B")
         apply_buy_product_get_other_free(2, "F")
+        apply_buy_product_get_other_free(2, "N", "M")
+        apply_buy_product_get_other_free(2, "R", "Q")
+        apply_buy_product_get_other_free(3, "U")
 
-        # Apply 3N get one M free
-        if "N" in sku_count and "M" in sku_count:
-            num_free_m = sku_count["N"] // 3
-            sku_count["M"] = max(0, sku_count["M"] - num_free_m)
 
-        # Apply 3R get one Q free
-        if "R" in sku_count and "Q" in sku_count:
-            num_free_q = sku_count["R"] // 3
-            sku_count["Q"] = max(0, sku_count["Q"] - num_free_q)
+        def get_any_amount_from_group(sku):
+            for
+
 
 
         # Main pricing loop
@@ -107,3 +103,4 @@ class CheckoutSolution:
             total += count * PRICES[sku]
 
         return total
+
