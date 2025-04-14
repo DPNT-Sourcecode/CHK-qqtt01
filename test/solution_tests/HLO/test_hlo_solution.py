@@ -17,7 +17,3 @@ class TestHello():
 
     def test_trimmed_name(self):
         assert HelloSolution().hello("  World  ") == "Hello, World!"
-
-
-
-

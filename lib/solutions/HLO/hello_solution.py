@@ -10,6 +10,3 @@ class HelloSolution:
         if not friend_name:
             return DEFAULT_MESSAGE
         return f"Hello, {friend_name}!"
-
-
-
