@@ -104,9 +104,9 @@ class TestCheckoutSolution:
         # U: price 40; Offer: For every 4 U's, pay for 3 (i.e. 3U free 1).
         assert CheckoutSolution().checkout("U") == 40
         # 4U: pay for 3*40 = 160.
-        assert CheckoutSolution().checkout("UUUU") == 160
+        assert CheckoutSolution().checkout("UUUU") == 120
         # 5U: pay for 4, 1 free from 4 -> 4*40
-        assert CheckoutSolution().checkout("UUUUU") == 200  # 5U: pay for 4, 1 free from 4 -> 4*40
+        assert CheckoutSolution().checkout("UUUUU") == 160  # 5U: pay for 4, 1 free from 4 -> 4*40
 
     def test_new_product_N_M_cross_offer(self):
         # N: price 40; M: price 15; Offer: 3N get one M free.
@@ -128,8 +128,8 @@ class TestCheckoutSolution:
 
     def test_new_products_no_offer(self):
         # Test products that have no special offers.
-        # I: 35, J: 60, L: 90, O: 10, S: 20, T: 20, W: 20, X: 17, Y: 10, Z: 21, G: 20.
-        for sku, price in zip("IJLOSTWXYZG", [35, 60, 90, 10, 20, 20, 20, 17, 10, 21, 20]):
+        # I: 35, J: 60, L: 90, O: 10, S: 20, T: 20, W: 20, X: 17, Y: 20, Z: 21, G: 20.
+        for sku, price in zip("IJLOSTWXYZG", [35, 60, 90, 10, 20, 20, 20, 17, 20, 21, 20]):
             assert CheckoutSolution().checkout(sku) == price
 
     def test_complex_basket_new_offers(self):
@@ -161,6 +161,7 @@ class TestCheckoutSolution:
         # Group discount: S(20) + X(17) + Z(21) = 58 => discounted to 45 => 13 savings
         # Add 25 for items not in sku_count but in group_items?
         assert CheckoutSolution().checkout(basket) == expected
+
 
 
 
