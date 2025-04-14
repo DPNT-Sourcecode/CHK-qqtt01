@@ -67,12 +67,8 @@ class CheckoutSolution:
                 num_free = sku_count[sku] // count
                 sku_count[free_sku] = max(0, sku_count[free_sku] - num_free)
 
-        apply_buy_product_get_other_free("E", "B", 2)
-
-        # Apply 2F get one B free
-        if "E" in sku_count and "B" in sku_count:
-            num_free_b = sku_count["E"] // 2
-            sku_count["B"] = max(0, sku_count["B"] - num_free_b)
+        apply_buy_product_get_other_free("E", "B", 3)
+        apply_buy_product_get_other_free("F", "F", 3)
 
         # Apply 3N get one M free
         if "N" in sku_count and "M" in sku_count:
@@ -109,4 +105,5 @@ class CheckoutSolution:
             total += count * PRICES[sku]
 
         return total
+
 
