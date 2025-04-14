@@ -18,12 +18,14 @@ class TestCheckoutSolution:
 
     def test_discounts(self):
         assert CheckoutSolution().checkout(["A", "A", "A"]) == 130
-    #     assert CheckoutSolution().checkout(["B", "B"]) == 45
-    #     assert CheckoutSolution().checkout(["A", "A", "B", "B"]) == 100 + 45
-    #
+        assert CheckoutSolution().checkout(["A", "A", "A"] + ["A"] * 3) == 130 + 130
+        assert CheckoutSolution().checkout(["B", "B"]) == 45
+        assert CheckoutSolution().checkout(["B"] * 4) == 45 * 2
+    
     # def test_product_have_no_discount(self):
     #     assert CheckoutSolution().checkout(["C", "C"]) == 40
     #     assert CheckoutSolution().checkout(["D", "D"]) == 30
+
 
 
 
