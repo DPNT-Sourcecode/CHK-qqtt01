@@ -18,7 +18,7 @@ class TestCheckoutSolution:
 
     def test_discounts(self):
         assert CheckoutSolution().checkout("AAA") == 130
-        assert CheckoutSolution().checkout("AAAAAA") == 130 + 130
+        assert CheckoutSolution().checkout("A" * 6) == 200 + 50
         assert CheckoutSolution().checkout("BB") == 45
         assert CheckoutSolution().checkout("BBBB") == 45 * 2
 
@@ -27,11 +27,12 @@ class TestCheckoutSolution:
         assert CheckoutSolution().checkout("DD") == 30
 
     def test_2es_gives_1b_free(self):
-        assert CheckoutSolution().checkout("EEB") == 40 + 30
-        assert CheckoutSolution().checkout("EEEEBB") == 40 * 2 + 30
-    #
+        assert CheckoutSolution().checkout("EEB") == 40 + 40
+        assert CheckoutSolution().checkout("EEEEBB") == 40 * 4
+    
     # def test_combined_discounts(self):
     #     assert CheckoutSolution().checkout("A" * 3 + "A" * 5) == 130 + 200
+
 
 
 

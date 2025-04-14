@@ -45,16 +45,17 @@ class CheckoutSolution:
 
             # Check for special offers
             if sku in OFFERS:
-                offer_count, offer_price = OFFERS[sku]
-                # Calculate number of offers applicable
-                num_offers = count // offer_count
-                total += num_offers * offer_price
-                count %= offer_count
+                # Apply offers
+                for offer_qty, offer_price in sorted(OFFERS[sku], reverse=True):
+                    num_offers = count // offer_qty
+                    total += num_offers * offer_price
+                    count %= offer_qty
 
             # Add remaining items at normal price
             total += count * PRICES[sku]
 
         return total
+
 
 
 
