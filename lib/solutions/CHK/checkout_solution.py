@@ -57,6 +57,21 @@ class CheckoutSolution:
         total = 0
         sku_count = Counter(skus)
 
+        # Apply 2E get one B free
+        if "E" in sku_count and "B" in sku_count:
+            num_free_b = sku_count["E"] // 2
+            sku_count["B"] = max(0, sku_count["B"] - num_free_b)
+
+        # Apply 3N get one M free
+        if "N" in sku_count and "M" in sku_count:
+            num_free_m = sku_count["N"] // 3
+            sku_count["M"] = max(0, sku_count["M"] - num_free_m)
+
+        # Apply 3R get one Q free
+        if "R" in sku_count and "Q" in sku_count:
+            num_free_q = sku_count["R"] // 3
+            sku_count["Q"] = max(0, sku_count["Q"] - num_free_q)
+
         # Group discount offer: any 3 of (S,T,X,Y,Z) for 45
         group_skus = {"S", "T", "X", "Y", "Z"}
         group_items = []
@@ -89,6 +104,7 @@ class CheckoutSolution:
             total += count * PRICES[sku]
 
         return total
+
 
 
 

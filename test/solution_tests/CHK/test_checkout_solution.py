@@ -149,6 +149,19 @@ class TestCheckoutSolution:
         expected = 200 + 30 + 80 + 20 + 80 + 120 + 120 + 180 + 150 + 80
         assert CheckoutSolution().checkout(basket) == expected
 
+    def test_chk_r5_060(self):
+        # 2E should make 1B free, so 40+40 = 80, B = free
+        assert CheckoutSolution().checkout("EEB") == 80
+
+    def test_chk_r5_061(self):
+        # 3E = 1B free from 2E, remaining E + B = 40 + 40 + 30 = 110, minus free B (30) = 120
+        assert CheckoutSolution().checkout("EEEB") == 120
+
+    def test_chk_r5_062(self):
+        # 4E = 2B free, 2B present, so both free: 4E = 160
+        assert CheckoutSolution().checkout("EEEEBB") == 160
+
+
 
 
 
