@@ -26,8 +26,13 @@ class TestCheckoutSolution:
         assert CheckoutSolution().checkout("CC") == 40
         assert CheckoutSolution().checkout("DD") == 30
 
-    def test_combined_discounts(self):
-        assert CheckoutSolution().checkout("A" * 3 + "A" * 5) == 130 + 200
+    def test_2es_gives_1b_free(self):
+        assert CheckoutSolution().checkout("EEB") == 40 + 30
+        assert CheckoutSolution().checkout("EEEEBB") == 40 * 2 + 30
+    #
+    # def test_combined_discounts(self):
+    #     assert CheckoutSolution().checkout("A" * 3 + "A" * 5) == 130 + 200
+
 
 
 

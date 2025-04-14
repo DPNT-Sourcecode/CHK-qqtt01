@@ -33,6 +33,12 @@ class CheckoutSolution:
         total = 0
         sku_count = Counter(skus)
 
+        # Apply 2Es gives 1 B free
+        num_es = sku_count.get('E', 0)
+        num_bs = sku_count.get('B', 0)
+        free_bs = num_es // 2
+        sku_count['B'] = max(0, num_bs - free_bs)
+
         for sku, count in sku_count.items():
             if sku not in PRICES:
                 return ERROR_CODE
@@ -49,6 +55,7 @@ class CheckoutSolution:
             total += count * PRICES[sku]
 
         return total
+
 
 
 
