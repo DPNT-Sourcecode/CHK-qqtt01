@@ -2,7 +2,7 @@ from solutions.CHK.checkout_solution import CheckoutSolution
 
 class TestCheckoutSolution:
     def test_invalid_input(self):
-        assert CheckoutSolution().checkout("") == -1
+        assert CheckoutSolution().checkout("") == 0
         assert CheckoutSolution().checkout("123") == -1
         assert CheckoutSolution().checkout(None) == -1
 
@@ -25,4 +25,5 @@ class TestCheckoutSolution:
     def test_product_have_no_discount(self):
         assert CheckoutSolution().checkout("CC") == 40
         assert CheckoutSolution().checkout("DD") == 30
+
 

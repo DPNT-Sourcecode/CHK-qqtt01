@@ -20,7 +20,7 @@ class CheckoutSolution:
     @staticmethod
     def _validate_skus(skus: str) -> bool:
         # Validate if skus is a list of strings
-        if not skus or not isinstance(skus, str):
+        if not isinstance(skus, str):
             return False
         return True
 
@@ -47,4 +47,5 @@ class CheckoutSolution:
             total += count * PRICES[sku]
 
         return total
+
 
