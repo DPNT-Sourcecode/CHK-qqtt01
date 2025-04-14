@@ -14,6 +14,7 @@ class TestCheckoutSolution:
         assert CheckoutSolution().checkout("E") == 40
         assert CheckoutSolution().checkout("F") == 10
 
+
     def test_multiple_product(self):
         assert CheckoutSolution().checkout("AA") == 100
         assert CheckoutSolution().checkout("ABCD") == 50 + 30 + 20 + 15
@@ -187,7 +188,4 @@ class TestCheckoutSolution:
         assert CheckoutSolution().checkout("AAAAAEEBAAABB") == 455
         assert CheckoutSolution().checkout("ABCDECBAABCABBAAAEEAA") == 665
 
-
-
-
-
+    def test_groups
