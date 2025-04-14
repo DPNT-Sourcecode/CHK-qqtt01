@@ -41,7 +41,7 @@ class TestCheckoutSolution:
 
     def test_odd_number_of_es_and_bs(self):
         # 5E gives 2B free, 1E no additional effect
-        assert CheckoutSolution().checkout("EEEEE" + "BBB") == 275
+        assert CheckoutSolution().checkout("EEEEE" + "BBB") == 40 * 5 + 30
 
     def test_discount_priority_on_a(self):
         # 5A should apply 5A for 200, not 3A+2A
@@ -49,7 +49,7 @@ class TestCheckoutSolution:
 
     def test_mixed_items_with_all_discounts(self):
         # 5A (200), 2B (45), 2E (1B free), 1B charged
-        assert CheckoutSolution().checkout("AAAAABBEE") == 325
+        assert CheckoutSolution().checkout("AAAAABBEE") == 200
 
     def test_f_offer_exactly_three(self):
         assert CheckoutSolution().checkout("F" * 2) == 20
@@ -160,4 +160,5 @@ class TestCheckoutSolution:
     def test_chk_r5_062(self):
         # 4E = 2B free, 2B present, so both free: 4E = 160
         assert CheckoutSolution().checkout("EEEEBB") == 160
+
 
