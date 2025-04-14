@@ -42,7 +42,7 @@ OFFERS = {
     "U": [(4, 120)],            # Offers for U: 4U for 120 (3U get one U free)
 }
 
-GROUP = set("S", "T", "X", "Y", "Z")
+GROUP = {"S", "T", "X", "Y", "Z"}
 GROUP_PRICE = 45
 GROUP_NUM = 3
 
@@ -61,6 +61,16 @@ class CheckoutSolution:
         total = 0
         sku_count = Counter(skus)
 
+        # Handle group offers
+        group_count = len([s for s in sku_count if s in GROUP])
+        if group_count >= GROUP_NUM:
+            total += (group_count // GROUP_NUM) * GROUP_PRICE
+            for sku in GROUP:
+                if sku in sku_count:
+                    total += sku_count[sku] * PRICES[sku]
+                    sku_count[sku] = 0
+
+        # Handle special offers
         def apply_buy_product_get_other_free(num, sku, free_sku = None):
             if sku in sku_count and free_sku in sku_count:
                 num_free = sku_count[sku] // num
@@ -71,10 +81,6 @@ class CheckoutSolution:
         apply_buy_product_get_other_free(2, "N", "M")
         apply_buy_product_get_other_free(2, "R", "Q")
         apply_buy_product_get_other_free(3, "U")
-
-
-
-
 
 
         # Main pricing loop
@@ -93,5 +99,6 @@ class CheckoutSolution:
             total += count * PRICES[sku]
 
         return total
+
 
 
