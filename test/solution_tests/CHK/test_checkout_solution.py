@@ -87,6 +87,11 @@ class TestCheckoutSolution:
         assert CheckoutSolution().checkout("CCADDEEBBA") == 280
         assert CheckoutSolution().checkout("AAAAAEEBAAABB") == 455
         assert CheckoutSolution().checkout("ABCDECBAABCABBAAAEEAA") == 665
+        assert CheckoutSolution().checkout("ABCDEFABCDEF") == 290
+        assert CheckoutSolution().checkout("CDFFAECBDEAB") == 290
+        assert CheckoutSolution().checkout("AAAAAEEBAAABBFFF") == 475
+        assert CheckoutSolution().checkout("FFABCDECBAABCABBAAAEEAAFF") == 685
+
 
 
 
