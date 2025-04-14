@@ -53,13 +53,13 @@ class TestCheckoutSolution:
         assert CheckoutSolution().checkout("AAAAABBEE") == 200 + 80 + 30
 
     def test_f_offer_exactly_three(self):
-        assert CheckoutSolution().checkout("F" * 2) == 10
+        assert CheckoutSolution().checkout("F" * 2) == 20
 
     def test_f_offer_with_remainder(self):
-        assert CheckoutSolution().checkout("F" * 4) == 20
+        assert CheckoutSolution().checkout("F" * 4) == 20 + 10
 
     def test_f_offer_multiple_sets(self):
-        assert CheckoutSolution().checkout("F" * 5) == 30
+        assert CheckoutSolution().checkout("F" * 5) == 20 + 10 + 10
 
     def test_from_output(self):
         assert CheckoutSolution().checkout("a") == -1
@@ -87,5 +87,6 @@ class TestCheckoutSolution:
         assert CheckoutSolution().checkout("CCADDEEBBA") == 280
         assert CheckoutSolution().checkout("AAAAAEEBAAABB") == 455
         assert CheckoutSolution().checkout("ABCDECBAABCABBAAAEEAA") == 665
+
 
 
