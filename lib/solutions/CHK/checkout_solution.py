@@ -1,5 +1,17 @@
 ERROR_CODE = -1
 
+PRICES = {
+    "A": 50,
+    "B": 30,
+    "C": 20,
+    "D": 15,
+}
+
+OFFERS = {
+    "A": (3, 130),  # 3 A's for 130
+    "B": (2, 45),   # 2 B's for 45
+}
+
 
 class CheckoutSolution:
 
@@ -14,6 +26,7 @@ class CheckoutSolution:
     def checkout(self, skus: list[str]) -> int:
         if not self._validate_skus(skus):
             return ERROR_CODE
+
 
 
 
