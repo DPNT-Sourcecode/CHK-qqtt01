@@ -26,4 +26,7 @@ class TestCheckoutSolution:
         assert CheckoutSolution().checkout("CC") == 40
         assert CheckoutSolution().checkout("DD") == 30
 
+    def test_combined_discounts
+
+
 
