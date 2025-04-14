@@ -72,21 +72,6 @@ class CheckoutSolution:
             num_free_q = sku_count["R"] // 3
             sku_count["Q"] = max(0, sku_count["Q"] - num_free_q)
 
-        # Group discount offer: any 3 of (S,T,X,Y,Z) for 45
-        group_skus = {"S", "T", "X", "Y", "Z"}
-        group_items = []
-        for sku in list(sku_count):
-            if sku in group_skus:
-                group_items.extend([sku] * sku_count[sku])
-                del sku_count[sku]
-
-        group_items.sort(key=lambda s: PRICES[s], reverse=True)
-        group_discount = 0
-        num_groups = len(group_items) // 3
-        group_discount += num_groups * 45
-        remaining = group_items[num_groups * 3:]
-        group_discount += sum(PRICES[s] for s in remaining)
-        total += group_discount
 
         # Main pricing loop
         for sku, count in sku_count.items():
@@ -104,3 +89,4 @@ class CheckoutSolution:
             total += count * PRICES[sku]
 
         return total
+
