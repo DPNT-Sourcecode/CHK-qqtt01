@@ -48,8 +48,8 @@ class TestCheckoutSolution:
         assert CheckoutSolution().checkout("A" * 5) == 200
 
     def test_mixed_items_with_all_discounts(self):
-        # 5A (200), 2B (45), 2E (1B free), 1B charged
-        assert CheckoutSolution().checkout("AAAAABBEE") == 200
+        # 5A (200), 2B (80), 2E (1B free), 1B charged 30
+        assert CheckoutSolution().checkout("AAAAABBEE") == 200 + 80 + 30
 
     def test_f_offer_exactly_three(self):
         assert CheckoutSolution().checkout("F" * 2) == 20
@@ -112,18 +112,18 @@ class TestCheckoutSolution:
         # Without M: "NNN" yields 3*40 = 120.
         assert CheckoutSolution().checkout("NNN") == 120
         # With one M: "NNNM", one M is free, so total = 3N * 40 + 15 = 135.
-        assert CheckoutSolution().checkout("NNNM") == 135
+        assert CheckoutSolution().checkout("NNNM") == 120
         # With extra M's: "NNNNNNMM" -> 6N yield 6*40 = 240, and 6N gives two free Ms, so even if 2 M's are present, they are free.
-        assert CheckoutSolution().checkout("NNNNNNMM") == 270  # 6N, 2M; 2 free Ms, no discount applied to cost
+        assert CheckoutSolution().checkout("NNNNNNMM") == 240  # 6N, 2M; 2 free Ms, no discount applied to cost
 
     def test_new_product_R_Q_cross_offer(self):
         # R: price 50; Q: price 30; Offer: 3R get one Q free.
         # "RRR" alone: 150.
         assert CheckoutSolution().checkout("RRR") == 150
         # "RRRQ": Q becomes free so total = 150.
-        assert CheckoutSolution().checkout("RRRQ") == 180
+        assert CheckoutSolution().checkout("RRRQ") == 150
         # "RRRQ" + extra Q: "RRRQQ" => free one Q, so pay for one Q: 150 + 30 = 210  # RRR = 150, Q=2 after 1 free, 1 paid
-        assert CheckoutSolution().checkout("RRRQ" + "Q") == 210  # RRR = 150, Q=2 after 1 free, 1 paid
+        assert CheckoutSolution().checkout("RRRQ" + "Q") == 150 + 30  # RRR = 150, Q=2 after 1 free, 1 paid
 
     def test_new_products_no_offer(self):
         # Test products that have no special offers.
@@ -160,5 +160,6 @@ class TestCheckoutSolution:
     def test_chk_r5_062(self):
         # 4E = 2B free, 2B present, so both free: 4E = 160
         assert CheckoutSolution().checkout("EEEEBB") == 160
+
 
 
