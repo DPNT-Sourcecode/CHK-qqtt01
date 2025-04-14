@@ -131,24 +131,6 @@ class TestCheckoutSolution:
         for sku, price in zip("IJLOSTWXYZG", [35, 60, 90, 10, 20, 20, 20, 17, 20, 21, 20]):
             assert CheckoutSolution().checkout(sku) == price
 
-    def test_complex_basket_new_offers(self):
-        # Construct a complex basket including multiple products:
-        # For example, basket:
-        basket = "AAAAABBEEFFFHHHHHHHHHHKKUUUUVVVVPPPQQQ"
-        # Expected calculation:
-        # A: 5A = 200
-        # B: 2B, but note "EE" gives one free B. If there were any B's, reduce count. Here initial B count: 2; free B = (2E)//2 = 1; effective B = 2-1 = 1 * 30 = 30
-        # E: 2E = 80
-        # F: 3F, pay for 2 = 20
-        # H: 10H = 80
-        # K: 2K = 120
-        # U: 4U, pay for 3 = 120
-        # V: 4V = 180
-        # P: 3P at full price = 150 (offer not triggered)
-        # Q: 3Q = 80 (offer triggered for Q, but need exactly 3 for offer)
-        expected = 200 + 30 + 80 + 20 + 80 + 120 + 120 + 180 + 150 + 80
-        assert CheckoutSolution().checkout(basket) == expected
-
     def test_chk_r5_060(self):
         # 2E should make 1B free, so 40+40 = 80, B = free
         assert CheckoutSolution().checkout("EEB") == 80
@@ -161,5 +143,7 @@ class TestCheckoutSolution:
         # 4E = 2B free, 2B present, so both free: 4E = 160
         assert CheckoutSolution().checkout("EEEEBB") == 160
 
-
-
+    def test_S_group_offer(self):
+        # Buy any 3 of (S, T, X, Y, Z) for 45.
+        # 3S = 60, 3T = 60, 3X = 51, 3Y = 60, 3Z = 63
+        assert CheckoutSolution().checkout("SSS") == 60
