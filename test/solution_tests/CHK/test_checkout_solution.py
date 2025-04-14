@@ -11,6 +11,7 @@ class TestCheckoutSolution:
         assert CheckoutSolution().checkout("B") == 30
         assert CheckoutSolution().checkout("C") == 20
         assert CheckoutSolution().checkout("D") == 15
+        assert CheckoutSolution().checkout("E") == 40
 
     def test_multiple_product(self):
         assert CheckoutSolution().checkout("AA") == 100
@@ -29,12 +30,23 @@ class TestCheckoutSolution:
     def test_2es_gives_1b_free(self):
         assert CheckoutSolution().checkout("EEB") == 40 + 40
         assert CheckoutSolution().checkout("EEEEBB") == 40 * 4
-    
-    # def test_combined_discounts(self):
-    #     assert CheckoutSolution().checkout("A" * 3 + "A" * 5) == 130 + 200
 
+    def test_2e_no_b_to_discount(self):
+        # 2E without B still charges 2E only
+        assert CheckoutSolution().checkout("EE") == 80
 
+    def test_e_and_multiple_b_discount_limited(self):
+        # 2E can remove only one B
+        assert CheckoutSolution().checkout("EEBBB") == 125  # one B is free
 
+    def test_odd_number_of_es_and_bs(self):
+        # 5E gives 2B free, 1E no additional effect
+        assert CheckoutSolution().checkout("EEEEE" + "BBB") == 40 * 5 + 30 * 1
 
+    def test_discount_priority_on_a(self):
+        # 5A should apply 5A for 200, not 3A+2A
+        assert CheckoutSolution().checkout("A" * 5) == 200
 
-
+    def test_mixed_items_with_all_discounts(self):
+        # 5A (200), 2B (45), 2E (1B free), 1B charged
+        assert CheckoutSolution().checkout("AAAAABBEE") == 200 + 80 + 30
