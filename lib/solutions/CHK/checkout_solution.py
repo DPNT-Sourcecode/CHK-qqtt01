@@ -18,14 +18,14 @@ OFFERS = {
 class CheckoutSolution:
 
     @staticmethod
-    def _validate_skus(skus: list[str]) -> bool:
+    def _validate_skus(skus: str) -> bool:
         # Validate if skus is a list of strings
-        if not skus or not isinstance(skus, list) or not all(isinstance(sku, str) for sku in skus):
+        if not skus or not isinstance(skus, str):
             return False
         return True
 
     # skus = unicode string
-    def checkout(self, skus: list[str]) -> int:
+    def checkout(self, skus: str) -> int:
         if not self._validate_skus(skus):
             return ERROR_CODE
         total = 0
@@ -47,3 +47,4 @@ class CheckoutSolution:
             total += count * PRICES[sku]
 
         return total
+
