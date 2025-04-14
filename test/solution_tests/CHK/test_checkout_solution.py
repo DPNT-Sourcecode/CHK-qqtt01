@@ -14,7 +14,6 @@ class TestCheckoutSolution:
         assert CheckoutSolution().checkout("E") == 40
         assert CheckoutSolution().checkout("F") == 10
 
-
     def test_multiple_product(self):
         assert CheckoutSolution().checkout("AA") == 100
         assert CheckoutSolution().checkout("ABCD") == 50 + 30 + 20 + 15
@@ -135,7 +134,7 @@ class TestCheckoutSolution:
     def test_complex_basket_new_offers(self):
         # Construct a complex basket including multiple products:
         # For example, basket:
-        # "AAAAABBEEFFFHHHHHHHHHHKKUUUUVVVVPPPQQQ"
+        basket = "AAAAABBEEFFFHHHHHHHHHHKKUUUUVVVVPPPQQQ"
         # Expected calculation:
         # A: 5A = 200
         # B: 2B, but note "EE" gives one free B. If there were any B's, reduce count. Here initial B count: 2; free B = (2E)//2 = 1; effective B = 2-1 = 1 * 30 = 30
@@ -149,6 +148,7 @@ class TestCheckoutSolution:
         # Q: 3Q = 80 (offer triggered for Q, but need exactly 3 for offer)
         expected = 200 + 30 + 80 + 20 + 80 + 120 + 120 + 180 + 150 + 80
         assert CheckoutSolution().checkout(basket) == expected
+
 
 
 
