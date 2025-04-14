@@ -68,8 +68,7 @@ class CheckoutSolution:
             total += (group_count // GROUP_NUM) * GROUP_PRICE
             for sku in GROUP:
                 if sku in sku_count:
-                    total += sku_count[sku] * PRICES[sku]
-                    sku_count[sku] = 0
+                    sku_count[sku] = max(0, sku_count[sku] - group_count // GROUP_NUM * GROUP_NUM)
 
         # Handle special offers
         def apply_buy_product_get_other_free(num, sku, free_sku = None):
@@ -100,6 +99,7 @@ class CheckoutSolution:
             total += count * PRICES[sku]
 
         return total
+
 
 
 
