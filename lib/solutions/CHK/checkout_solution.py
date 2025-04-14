@@ -46,7 +46,10 @@ class CheckoutSolution:
 
             # Check for special F offer
             if sku == "F":
-                free_fs = count // 3
+                free_fs = count // 2
+                payable_fs = count - free_fs
+                total += payable_fs * PRICES[sku]
+                continue
 
 
             # Check for special offers
@@ -61,4 +64,5 @@ class CheckoutSolution:
             total += count * PRICES[sku]
 
         return total
+
 

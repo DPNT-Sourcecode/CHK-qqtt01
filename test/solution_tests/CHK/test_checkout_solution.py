@@ -12,6 +12,7 @@ class TestCheckoutSolution:
         assert CheckoutSolution().checkout("C") == 20
         assert CheckoutSolution().checkout("D") == 15
         assert CheckoutSolution().checkout("E") == 40
+        assert CheckoutSolution().checkout("F") == 10
 
     def test_multiple_product(self):
         assert CheckoutSolution().checkout("AA") == 100
@@ -50,3 +51,13 @@ class TestCheckoutSolution:
     def test_mixed_items_with_all_discounts(self):
         # 5A (200), 2B (45), 2E (1B free), 1B charged
         assert CheckoutSolution().checkout("AAAAABBEE") == 200 + 80 + 30
+
+    def test_f_offer_exactly_three(self):
+        assert CheckoutSolution().checkout("F" * 2) == 10
+
+    def test_f_offer_with_remainder(self):
+        assert CheckoutSolution().checkout("F" * 4) == 20
+
+    def test_f_offer_multiple_sets(self):
+        assert CheckoutSolution().checkout("F" * 5) == 30
+
