@@ -67,8 +67,8 @@ class CheckoutSolution:
                 num_free = sku_count[sku] // count
                 sku_count[free_sku] = max(0, sku_count[free_sku] - num_free)
 
-        apply_buy_product_get_other_free("E", "B", 3)
-        apply_buy_product_get_other_free("F", "F", 3)
+        apply_buy_product_get_other_free("E", "B", 2)
+        apply_buy_product_get_other_free("F", "F", 2)
 
         # Apply 3N get one M free
         if "N" in sku_count and "M" in sku_count:
@@ -86,13 +86,13 @@ class CheckoutSolution:
             if sku not in PRICES:
                 return ERROR_CODE
 
-            # Apply group offers if available
-            for group, offers in GROUP_OFFERS.items():
-                if sku in group:
-                    for offer_qty, offer_price in sorted(offers, reverse=True):
-                        num_offers = count // offer_qty
-                        total += num_offers * offer_price
-                        count %= offer_qty
+            # # Apply group offers if available
+            # for group, offers in GROUP_OFFERS.items():
+            #     if sku in group:
+            #         for offer_qty, offer_price in sorted(offers, reverse=True):
+            #             num_offers = count // offer_qty
+            #             total += num_offers * offer_price
+            #             count %= offer_qty
 
             # Apply special offers if available, sorted in descending order by quantity
             if sku in OFFERS:
@@ -105,5 +105,6 @@ class CheckoutSolution:
             total += count * PRICES[sku]
 
         return total
+
 
 
