@@ -52,6 +52,7 @@ class TestCheckoutSolution:
         assert CheckoutSolution().checkout("AAAAABBEE") == 200 + 80 + 30
 
     def test_f_offer_exactly_three(self):
+        # F: price 10; Offer: 3F for 20.
         assert CheckoutSolution().checkout("F" * 2) == 20
 
     def test_f_offer_with_remainder(self):
