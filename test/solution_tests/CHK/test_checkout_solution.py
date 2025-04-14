@@ -61,3 +61,31 @@ class TestCheckoutSolution:
     def test_f_offer_multiple_sets(self):
         assert CheckoutSolution().checkout("F" * 5) == 30
 
+    def test_from_output(self):
+        assert CheckoutSolution().checkout("a") == -1
+        assert CheckoutSolution().checkout("-") == -1
+        assert CheckoutSolution().checkout("ABCa") == -1
+        assert CheckoutSolution().checkout("AxA") == -1
+        assert CheckoutSolution().checkout("ABCDE") == 155
+        assert CheckoutSolution().checkout("AA") == 100
+        assert CheckoutSolution().checkout("AAA") == 130
+        assert CheckoutSolution().checkout("AAAA") == 180
+        assert CheckoutSolution().checkout("AAAAA") == 200
+        assert CheckoutSolution().checkout("AAAAAA") == 250
+        assert CheckoutSolution().checkout("AAAAAAA") == 300
+        assert CheckoutSolution().checkout("AAAAAAAA") == 330
+        assert CheckoutSolution().checkout("AAAAAAAAA") == 380
+        assert CheckoutSolution().checkout("AAAAAAAAAA") == 400
+        assert CheckoutSolution().checkout("EE") == 80
+        assert CheckoutSolution().checkout("EEB") == 80
+        assert CheckoutSolution().checkout("EEEB") == 120
+        assert CheckoutSolution().checkout("EEEEBB") == 160
+        assert CheckoutSolution().checkout("BEBEEE") == 160
+        assert CheckoutSolution().checkout("BBB") == 75
+        assert CheckoutSolution().checkout("BBBB") == 90
+        assert CheckoutSolution().checkout("ABCDEABCDE") == 280
+        assert CheckoutSolution().checkout("CCADDEEBBA") == 280
+        assert CheckoutSolution().checkout("AAAAAEEBAAABB") == 455
+        assert CheckoutSolution().checkout("ABCDECBAABCABBAAAEEAA") == 665
+
+
