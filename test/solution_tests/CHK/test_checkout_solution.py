@@ -72,10 +72,10 @@ class TestCheckoutSolution:
 
     def test_new_product_K_offer(self):
         # K: price 80; Offer: 2K for 120.
-        assert CheckoutSolution().checkout("K") == 80
+        assert CheckoutSolution().checkout("K") == 70
         assert CheckoutSolution().checkout("KK") == 120
-        # 3K: best is 2K for 120 plus a single K: 120 + 80 = 219.
-        assert CheckoutSolution().checkout("KKK") == 210
+        # 3K: best is 2K for 120 plus a single K: 120 + 70 = 190.
+        assert CheckoutSolution().checkout("KKK") == 190
 
     def test_new_product_P_offer(self):
         # P: price 50; Offer: 5P for 200.
@@ -152,12 +152,12 @@ class TestCheckoutSolution:
         # E: 2E = 80
         # F: 3F, pay for 2 = 20
         # H: 10H = 80
-        # K: 2K = 150
+        # K: 2K = 120
         # U: 4U, pay for 3 = 120
         # V: 4V = 180
         # P: 3P at full price = 150 (offer not triggered)
         # Q: 3Q = 80 (offer triggered for Q, but need exactly 3 for offer)
-        expected = 200 + 30 + 80 + 20 + 80 + 150 + 120 + 180 + 150 + 80
+        expected = 200 + 30 + 80 + 20 + 80 + 120 + 120 + 180 + 150 + 80
         assert CheckoutSolution().checkout(basket) == expected
 
     def test_from_output(self):
@@ -186,6 +186,7 @@ class TestCheckoutSolution:
         assert CheckoutSolution().checkout("CCADDEEBBA") == 280
         assert CheckoutSolution().checkout("AAAAAEEBAAABB") == 455
         assert CheckoutSolution().checkout("ABCDECBAABCABBAAAEEAA") == 665
+
 
 
 
