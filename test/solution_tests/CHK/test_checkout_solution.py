@@ -103,7 +103,7 @@ class TestCheckoutSolution:
     def test_new_product_U_offer(self):
         # U: price 40; Offer: For every 4 U's, pay for 3 (i.e. 3U free 1).
         assert CheckoutSolution().checkout("U") == 40
-        # 4U: pay for 3*40 = 160.
+        # 4U: pay for 3*40 = 120.
         assert CheckoutSolution().checkout("UUUU") == 120
         # 5U: pay for 4, 1 free from 4 -> 4*40
         assert CheckoutSolution().checkout("UUUUU") == 160  # 5U: pay for 4, 1 free from 4 -> 4*40
@@ -135,17 +135,7 @@ class TestCheckoutSolution:
     def test_complex_basket_new_offers(self):
         # Construct a complex basket including multiple products:
         # For example, basket:
-        # "AAAAA" for A (5A for 200),
-        # "BB" for B (2B for 45),
-        # "EE" for E (2*40 = 80, and they give free B, already applied),
-        # "FFF" for F (3F -> pay for 2*10=20),
-        # "H"*10 for H (10H for 80),
-        # "KK" for K (2K for 120),
-        # "UUUU" for U (4U -> pay for 3*40 = 160),
-        # "VVVV" for V (4V for 180),
-        # "PPP" for P (3*50 = 150) and
-        # "QQQ" for Q (3Q for 80) where Q might also get cross-offer from R (but not in this basket)
-        basket = "AAAAA" + "BB" + "EE" + "FFF" + "H" * 10 + "KK" + "UUUU" + "VVVV" + "PPP" + "QQQ"
+        # "AAAAABBEEFFFHHHHHHHHHHKKUUUUVVVVPPPQQQ"
         # Expected calculation:
         # A: 5A = 200
         # B: 2B, but note "EE" gives one free B. If there were any B's, reduce count. Here initial B count: 2; free B = (2E)//2 = 1; effective B = 2-1 = 1 * 30 = 30
@@ -153,14 +143,13 @@ class TestCheckoutSolution:
         # F: 3F, pay for 2 = 20
         # H: 10H = 80
         # K: 2K = 120
-        # U: 4U, pay for 3 = 160
+        # U: 4U, pay for 3 = 120
         # V: 4V = 180
         # P: 3P at full price = 150 (offer not triggered)
         # Q: 3Q = 80 (offer triggered for Q, but need exactly 3 for offer)
-        expected = 200 + 30 + 80 + 20 + 80 + 120 + 160 + 180 + 150 + 80 + 25
-        # Group discount: S(20) + X(17) + Z(21) = 58 => discounted to 45 => 13 savings
-        # Add 25 for items not in sku_count but in group_items?
+        expected = 200 + 30 + 80 + 20 + 80 + 120 + 120 + 180 + 150 + 80
         assert CheckoutSolution().checkout(basket) == expected
+
 
 
 

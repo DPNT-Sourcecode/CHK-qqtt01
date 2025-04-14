@@ -21,7 +21,7 @@ PRICES = {
     "P": 50,
     "Q": 30,
     "R": 50,
-    "S": 30,
+    "S": 20,
     "T": 20,
     "U": 40,
     "V": 50,
@@ -32,17 +32,15 @@ PRICES = {
 }
 
 OFFERS = {
-    "A": [(3, 130), (5, 200)],  # Offers for A: 3A for 130, 5A for 200
+    "A": [(5, 200), (3, 130)],  # Offers for A: 5A for 200, 3A for 130
     "B": [(2, 45)],             # Offers for B: 2B for 45
     "H": [(10, 80), (5, 45)],    # Offers for H: 10H for 80, 5H for 45
     "K": [(2, 120)],            # Offers for K: 2K for 120
     "P": [(5, 200)],            # Offers for P: 5P for 200
     "Q": [(3, 80)],             # Offers for Q: 3Q for 80
     "V": [(3, 130), (2, 90)],    # Offers for V: 3V for 130, 2V for 90
-    "U": [(4, 120)],            # Offers for U: 4U for 120
-
+    "U": [(4, 120)],            # Offers for U: 4U for 120 (3U get one U free)
 }
-
 
 class CheckoutSolution:
 
@@ -91,5 +89,6 @@ class CheckoutSolution:
             total += count * PRICES[sku]
 
         return total
+
 
 
