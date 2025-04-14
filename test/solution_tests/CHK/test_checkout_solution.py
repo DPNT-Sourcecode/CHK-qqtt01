@@ -12,3 +12,8 @@ class TestCheckoutSolution:
         assert CheckoutSolution().checkout(["C"]) == 20
         assert CheckoutSolution().checkout(["D"]) == 15
 
+    def test_multiple_product(self):
+        assert CheckoutSolution().checkout(["A", "A"]) == 100
+        assert CheckoutSolution().checkout(["A", "B", "C", "D"]) == 50 + 30 + 20 + 15
+
+

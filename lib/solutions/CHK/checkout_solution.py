@@ -1,3 +1,5 @@
+from collections import Counter
+
 ERROR_CODE = -1
 
 PRICES = {
@@ -26,6 +28,18 @@ class CheckoutSolution:
     def checkout(self, skus: list[str]) -> int:
         if not self._validate_skus(skus):
             return ERROR_CODE
+        total = 0
+        sku_count = Counter(skus)
+
+        for sku, count in sku_count.items():
+            if sku not in PRICES:
+                return ERROR_CODE
+
+            # Add remaining items at normal price
+            total += count * PRICES[sku]
+
+        return total
+
 
 
 
