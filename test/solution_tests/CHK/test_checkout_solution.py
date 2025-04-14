@@ -72,7 +72,7 @@ class TestCheckoutSolution:
         assert CheckoutSolution().checkout("H" * 7) == 65
 
     def test_new_product_K_offer(self):
-        # K: price 80; Offer: 2K for 120.
+        # K: price 70; Offer: 2K for 120.
         assert CheckoutSolution().checkout("K") == 70
         assert CheckoutSolution().checkout("KK") == 120
         # 3K: best is 2K for 120 plus a single K: 120 + 70 = 190.
@@ -130,7 +130,7 @@ class TestCheckoutSolution:
     def test_new_products_no_offer(self):
         # Test products that have no special offers.
         # I: 35, J: 60, L: 90, O: 10, S: 30, T: 20, W: 20, X: 90, Y: 10, Z: 50, G: 20.
-        for sku, price in zip("IJLOSTWXYZG", [35, 60, 90, 10, 30, 20, 20, 90, 10, 50, 20]):
+        for sku, price in zip("IJLOSTWXYZG", [35, 60, 90, 10, 20, 20, 20, 17, 20, 21, 20]):
             assert CheckoutSolution().checkout(sku) == price
 
     def test_complex_basket_new_offers(self):
@@ -141,7 +141,7 @@ class TestCheckoutSolution:
         # "EE" for E (2*40 = 80, and they give free B, already applied),
         # "FFF" for F (3F -> pay for 2*10=20),
         # "H"*10 for H (10H for 80),
-        # "KK" for K (2K for 150),
+        # "KK" for K (2K for 120),
         # "UUUU" for U (4U -> pay for 3*40 = 120),
         # "VVVV" for V (4V for 180),
         # "PPP" for P (3*50 = 150) and
@@ -188,4 +188,3 @@ class TestCheckoutSolution:
         assert CheckoutSolution().checkout("AAAAAEEBAAABB") == 455
         assert CheckoutSolution().checkout("ABCDECBAABCABBAAAEEAA") == 665
 
-    def test_groups

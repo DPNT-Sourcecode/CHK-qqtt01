@@ -21,14 +21,14 @@ PRICES = {
     "P": 50,
     "Q": 30,
     "R": 50,
-    "S": 30,
+    "S": 20,
     "T": 20,
     "U": 40,
     "V": 50,
     "W": 20,
-    "X": 90,
+    "X": 17,
     "Y": 10,
-    "Z": 50,
+    "Z": 21,
 }
 
 OFFERS = {
@@ -57,37 +57,21 @@ class CheckoutSolution:
         total = 0
         sku_count = Counter(skus)
 
-        # Apply cross-item free offers:
-        # 2E get one B free
-        if "E" in sku_count and "B" in sku_count:
-            num_es = sku_count["E"]
-            num_bs = sku_count["B"]
-            free_bs = num_es // 2
-            sku_count["B"] = max(0, num_bs - free_bs)
+        # Group discount offer: any 3 of (S,T,X,Y,Z) for 45
+        group_skus = {"S", "T", "X", "Y", "Z"}
+        group_items = []
+        for sku in list(sku_count):
+            if sku in group_skus:
+                group_items.extend([sku] * sku_count[sku])
+                del sku_count[sku]
 
-        # 3N get one M free
-        if "N" in sku_count and "M" in sku_count:
-            num_ns = sku_count["N"]
-            num_ms = sku_count["M"]
-            free_ms = num_ns // 3
-            sku_count["M"] = max(0, num_ms - free_ms)
-
-        # 3R get one Q free
-        if "R" in sku_count and "Q" in sku_count:
-            num_rs = sku_count["R"]
-            num_qs = sku_count["Q"]
-            free_qs = num_rs // 3
-            sku_count["Q"] = max(0, num_qs - free_qs)
-
-        # Apply F discount: For every 3 F's, 1 is free (i.e., pay for 2)
-        if "F" in sku_count:
-            count_f = sku_count["F"]
-            sku_count["F"] = count_f - (count_f // 3)
-
-        # Apply U discount: For every 4 U's, pay for 3 (i.e., 3U get one U free)
-        if "U" in sku_count:
-            count_u = sku_count["U"]
-            sku_count["U"] = count_u - (count_u // 4)
+        group_items.sort(key=lambda s: PRICES[s], reverse=True)
+        group_discount = 0
+        num_groups = len(group_items) // 3
+        group_discount += num_groups * 45
+        remaining = group_items[num_groups * 3:]
+        group_discount += sum(PRICES[s] for s in remaining)
+        total += group_discount
 
         # Main pricing loop
         for sku, count in sku_count.items():
@@ -105,3 +89,4 @@ class CheckoutSolution:
             total += count * PRICES[sku]
 
         return total
+
