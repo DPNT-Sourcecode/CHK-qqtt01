@@ -42,10 +42,9 @@ OFFERS = {
     "U": [(4, 120)],            # Offers for U: 4U for 120 (3U get one U free)
 }
 
-
-GROUP_OFFERS = {
-    ("S", "T", "X", "Y", "Z"): (3, 45),  # Offers for S, T, X, Y, Z: 3 for 45
-}
+GROUP = set("S", "T", "X", "Y", "Z")
+GROUP_PRICE = 45
+GROUP_NUM = 3
 
 class CheckoutSolution:
 
@@ -74,8 +73,7 @@ class CheckoutSolution:
         apply_buy_product_get_other_free(3, "U")
 
 
-        def get_any_amount_from_group(sku):
-            for
+
 
 
 
@@ -83,14 +81,6 @@ class CheckoutSolution:
         for sku, count in sku_count.items():
             if sku not in PRICES:
                 return ERROR_CODE
-
-            # # Apply group offers if available
-            # for group, offers in GROUP_OFFERS.items():
-            #     if sku in group:
-            #         for offer_qty, offer_price in sorted(offers, reverse=True):
-            #             num_offers = count // offer_qty
-            #             total += num_offers * offer_price
-            #             count %= offer_qty
 
             # Apply special offers if available, sorted in descending order by quantity
             if sku in OFFERS:
@@ -103,4 +93,5 @@ class CheckoutSolution:
             total += count * PRICES[sku]
 
         return total
+
 
