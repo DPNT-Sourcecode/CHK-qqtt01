@@ -160,10 +160,3 @@ class TestCheckoutSolution:
     def test_chk_r5_062(self):
         # 4E = 2B free, 2B present, so both free: 4E = 160
         assert CheckoutSolution().checkout("EEEEBB") == 160
-
-
-
-
-
-
-
