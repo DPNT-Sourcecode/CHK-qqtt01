@@ -71,11 +71,11 @@ class TestCheckoutSolution:
         assert CheckoutSolution().checkout("H" * 7) == 65
 
     def test_new_product_K_offer(self):
-        # K: price 80; Offer: 2K for 150.
+        # K: price 80; Offer: 2K for 120.
         assert CheckoutSolution().checkout("K") == 80
-        assert CheckoutSolution().checkout("KK") == 150
-        # 3K: best is 2K for 150 plus a single K: 150 + 80 = 230.
-        assert CheckoutSolution().checkout("KKK") == 230
+        assert CheckoutSolution().checkout("KK") == 120
+        # 3K: best is 2K for 120 plus a single K: 120 + 80 = 219.
+        assert CheckoutSolution().checkout("KKK") == 210
 
     def test_new_product_P_offer(self):
         # P: price 50; Offer: 5P for 200.
@@ -186,6 +186,7 @@ class TestCheckoutSolution:
         assert CheckoutSolution().checkout("CCADDEEBBA") == 280
         assert CheckoutSolution().checkout("AAAAAEEBAAABB") == 455
         assert CheckoutSolution().checkout("ABCDECBAABCABBAAAEEAA") == 665
+
 
 
 
