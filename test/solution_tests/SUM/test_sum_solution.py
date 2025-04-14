@@ -10,4 +10,3 @@ class TestSum():
             SumSolution().compute(1, "a")
         except TypeError:
             assert True
-
