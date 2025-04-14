@@ -42,6 +42,11 @@ OFFERS = {
     "U": [(4, 120)],            # Offers for U: 4U for 120 (3U get one U free)
 }
 
+
+GROUP_OFFERS = {
+    {"S", "T", "X", "Y", "Z"}: [(3, 45)],  # Offers for S, T, X, Y, Z: 3 for 45
+}
+
 class CheckoutSolution:
 
     @staticmethod
@@ -78,6 +83,14 @@ class CheckoutSolution:
             if sku not in PRICES:
                 return ERROR_CODE
 
+            # Apply group offers if available
+            for group, offers in GROUP_OFFERS.items():
+                if sku in group:
+                    for offer_qty, offer_price in sorted(offers, reverse=True):
+                        num_offers = count // offer_qty
+                        total += num_offers * offer_price
+                        count %= offer_qty
+
             # Apply special offers if available, sorted in descending order by quantity
             if sku in OFFERS:
                 for offer_qty, offer_price in sorted(OFFERS[sku], reverse=True):
@@ -89,3 +102,4 @@ class CheckoutSolution:
             total += count * PRICES[sku]
 
         return total
+
