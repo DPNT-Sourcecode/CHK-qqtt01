@@ -143,7 +143,17 @@ class TestCheckoutSolution:
         # 4E = 2B free, 2B present, so both free: 4E = 160
         assert CheckoutSolution().checkout("EEEEBB") == 160
 
-    def test_S_group_offer(self):
+    def test_3S_group_offer(self):
         # Buy any 3 of (S, T, X, Y, Z) for 45.
         # 3S = 60, 3T = 60, 3X = 51, 3Y = 60, 3Z = 63
-        assert CheckoutSolution().checkout("SSS") == 60
+        assert CheckoutSolution().checkout("SSS") == 45
+        assert CheckoutSolution().checkout("SS") == 40
+
+    def test_3T_group_offer(self):
+        assert CheckoutSolution().checkout("TTT") == 45
+        assert CheckoutSolution().checkout("TT") == 40
+
+    def test_STX_group_offer(self):
+        # 3S + 3T + 3X = 45 + 45 + 51 = 141
+        assert CheckoutSolution().checkout("STX") == 45
+

@@ -44,7 +44,7 @@ OFFERS = {
 
 
 GROUP_OFFERS = {
-    {"S", "T", "X", "Y", "Z"}: [(3, 45)],  # Offers for S, T, X, Y, Z: 3 for 45
+    ("S", "T", "X", "Y", "Z"): [(3, 45)],  # Offers for S, T, X, Y, Z: 3 for 45
 }
 
 class CheckoutSolution:
@@ -102,4 +102,5 @@ class CheckoutSolution:
             total += count * PRICES[sku]
 
         return total
+
 
