@@ -8,6 +8,7 @@ PRICES = {
     "C": 20,
     "D": 15,
     "E": 40,
+    "F": 10,
 }
 
 OFFERS = {
@@ -43,6 +44,11 @@ class CheckoutSolution:
             if sku not in PRICES:
                 return ERROR_CODE
 
+            # Check for special F offer
+            if sku == "F":
+                free_fs = count // 3
+
+
             # Check for special offers
             if sku in OFFERS:
                 # Apply offers
@@ -55,3 +61,4 @@ class CheckoutSolution:
             total += count * PRICES[sku]
 
         return total
+
