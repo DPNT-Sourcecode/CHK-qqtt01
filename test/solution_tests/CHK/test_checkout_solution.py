@@ -26,7 +26,9 @@ class TestCheckoutSolution:
         assert CheckoutSolution().checkout("CC") == 40
         assert CheckoutSolution().checkout("DD") == 30
 
-    def test_combined_discounts
+    def test_combined_discounts(self):
+        assert CheckoutSolution().checkout("A" * 3 + "A" * 5) == 130 + 200
+
 
 
 

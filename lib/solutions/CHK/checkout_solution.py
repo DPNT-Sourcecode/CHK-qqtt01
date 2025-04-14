@@ -7,11 +7,13 @@ PRICES = {
     "B": 30,
     "C": 20,
     "D": 15,
+    "E": 40,
 }
 
 OFFERS = {
-    "A": (3, 130),  # 3 A's for 130
-    "B": (2, 45),   # 2 B's for 45
+    "A": [(3, 130), (5, 200)],  # 3 A's for 130 5 A's for 200
+    "B": [(2, 45)],   # 2 B's for 45
+
 }
 
 
@@ -47,5 +49,6 @@ class CheckoutSolution:
             total += count * PRICES[sku]
 
         return total
+
 
 
