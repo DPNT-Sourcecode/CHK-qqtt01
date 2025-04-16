@@ -74,6 +74,8 @@ class CheckoutSolution:
 
         # Handle special offers
         def apply_buy_product_get_other_free(num, sku, free_sku = None):
+            if free_sku is None:
+                free_sku = sku
             if sku in sku_count and free_sku in sku_count:
                 num_free = sku_count[sku] // num
                 sku_count[free_sku] = max(0, sku_count[free_sku] - num_free)
@@ -102,4 +104,5 @@ class CheckoutSolution:
             total += count * PRICES[sku]
 
         return total
+
 
