@@ -56,7 +56,8 @@ from pytest import mark
     ("FFF", P["F"] * 2),
     ("FFFF", P["F"] * 3),
     ("FFFFFF", P["F"] * 4),
-    ("ABCDECBAABCABBAAAEEAA", O["A"][5] + O["A"][3] + P["A"] + P["B"] + 2*O["B"][2] + P["C"] + P["D"] + P["E"] - P["B"] + 2*P["A"] + 2*P["B"] + 2*P["C"] + 2*P["D"] + 2*P["E"]),
+    # 9A, 5B, 3C, 1D, 3E
+    ("ABCDECBAABCABBAAAEEAA", (O["A"][5] + O["A"][3] + P["A"]) + (P["B"] + 2 * O["B"][2]) + 3 * P["C"] + P["D"] + (3 * P["E"] - P["B"])),
 
 ])
 def test_checkout_solution(skus, expected):
@@ -220,3 +221,4 @@ def test_checkout_solution(skus, expected):
 #     def test_STX_group_offer(self):
 #         # 3S + 3T + 3X = 45 + 45 + 51 = 141
 #         assert CheckoutSolution().checkout("STX") == 45
+
