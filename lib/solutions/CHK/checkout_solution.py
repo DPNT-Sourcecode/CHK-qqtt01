@@ -63,6 +63,8 @@ class CheckoutSolution:
             return ERROR_CODE
         total = 0
         sku_count = Counter(skus)
+        if skus == "ABCDECBAABCABBAAAEEAA":
+            print(sku_count)
 
         # # Handle group offers
         # group_count = sum([n for s, n in sku_count.items() if s in GROUP])
@@ -108,6 +110,3 @@ class CheckoutSolution:
             total += count * PRICES[sku]
 
         return total
-
-
-

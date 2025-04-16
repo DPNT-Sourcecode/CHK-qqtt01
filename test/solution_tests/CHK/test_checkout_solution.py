@@ -221,4 +221,3 @@ def test_checkout_solution(skus, expected):
 #     def test_STX_group_offer(self):
 #         # 3S + 3T + 3X = 45 + 45 + 51 = 141
 #         assert CheckoutSolution().checkout("STX") == 45
-
