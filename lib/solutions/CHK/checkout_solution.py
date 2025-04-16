@@ -80,7 +80,7 @@ class CheckoutSolution:
                 times = sku_count[sku] // num
                 while times > 0 and sku_count[free_sku] > 0:
                     sku_count[free_sku] = max(0, sku_count[free_sku] - 1)
-                    times = (sku_count[sku] - num * times) // num
+                    times = (sku_count[sku] - num) // num
 
         apply_buy_product_get_other_free(2, "E", "B")
         apply_buy_product_get_other_free(2, "F")
@@ -106,3 +106,4 @@ class CheckoutSolution:
             total += count * PRICES[sku]
 
         return total
+
