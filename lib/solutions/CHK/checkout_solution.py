@@ -66,7 +66,9 @@ class CheckoutSolution:
 
         # Handle group offers
         # Extract all group items from sku_count
-        group_items = OrderedDict(sorted((sku, count) for sku, count in sku_count.items() if sku in GROUP))
+        group_items = {sku: sku_count[sku] for sku in GROUP if sku in sku_count}
+        if len(group_items) >= GROUP_NUM:
+            # Sort them
 
 
         # Handle special offers
@@ -105,4 +107,5 @@ class CheckoutSolution:
             total += count * PRICES[sku]
 
         return total
+
 
