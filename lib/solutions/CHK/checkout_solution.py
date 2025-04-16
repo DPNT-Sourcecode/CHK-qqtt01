@@ -31,15 +31,18 @@ PRICES = {
     "Z": 21,
 }
 
+from collections import OrderedDict
+
+
+# Presorted offers for each SKU to implement largest offer first policy
 OFFERS = {
-    "A": [(5, 200), (3, 130)],  # Offers for A: 5A for 200, 3A for 130
-    "B": [(2, 45)],             # Offers for B: 2B for 45
-    "H": [(10, 80), (5, 45)],    # Offers for H: 10H for 80, 5H for 45
-    "K": [(2, 120)],            # Offers for K: 2K for 120
-    "P": [(5, 200)],            # Offers for P: 5P for 200
-    "Q": [(3, 80)],             # Offers for Q: 3Q for 80
-    "V": [(3, 130), (2, 90)],    # Offers for V: 3V for 130, 2V for 90
-    "U": [(4, 120)],            # Offers for U: 4U for 120 (3U get one U free)
+    "A": OrderedDict({5: 200, 3: 130}), # 5A for 200, 3A for 130
+    "B": OrderedDict({2: 45}),          # 2B for 45
+    "H": OrderedDict({10: 80, 5: 45}),  # 10H for 80, 5H for 45
+    "K": OrderedDict({2: 120}),         # 2K for 120
+    "P": OrderedDict({5: 200}),         # 5P for 200
+    "Q": OrderedDict({3: 80}),          # 3Q for 80
+    "V": OrderedDict({3: 130, 2: 90}),  # 3V for 130, 2V for 90
 }
 
 GROUP = {"S", "T", "X", "Y", "Z"}
@@ -89,8 +92,9 @@ class CheckoutSolution:
                 return ERROR_CODE
 
             # Apply special offers if available, sorted in descending order by quantity
+            # Assuming the policy is to apply the largest offer first
             if sku in OFFERS:
-                for offer_qty, offer_price in sorted(OFFERS[sku], reverse=True):
+                for offer_qty, offer_price in OFFERS[sku].items():
                     num_offers = count // offer_qty
                     total += num_offers * offer_price
                     count %= offer_qty
@@ -99,8 +103,3 @@ class CheckoutSolution:
             total += count * PRICES[sku]
 
         return total
-
-
-
-
-
