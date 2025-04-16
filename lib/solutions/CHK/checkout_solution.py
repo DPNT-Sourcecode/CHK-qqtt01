@@ -64,14 +64,13 @@ class CheckoutSolution:
         total = 0
         sku_count = Counter(skus)
 
-        # Handle group offers
-        group_count = sum([n for s, n in sku_count.items() if s in GROUP])
-        print(f"Group count: {group_count}")
-        if group_count >= GROUP_NUM:
-            total += (group_count // GROUP_NUM) * GROUP_PRICE
-            for sku in GROUP:
-                if sku in sku_count:
-                    sku_count[sku] = max(0, sku_count[sku] - group_count // GROUP_NUM * GROUP_NUM)
+        # # Handle group offers
+        # group_count = sum([n for s, n in sku_count.items() if s in GROUP])
+        # if group_count >= GROUP_NUM:
+        #     total += (group_count // GROUP_NUM) * GROUP_PRICE
+        #     for sku in GROUP:
+        #         if sku in sku_count:
+        #             sku_count[sku] = max(0, sku_count[sku] - group_count // GROUP_NUM * GROUP_NUM)
 
         # Handle special offers
         def apply_buy_product_get_other_free(num, sku, free_sku = None):
@@ -103,3 +102,4 @@ class CheckoutSolution:
             total += count * PRICES[sku]
 
         return total
+
