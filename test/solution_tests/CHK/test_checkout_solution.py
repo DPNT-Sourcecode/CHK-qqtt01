@@ -48,6 +48,11 @@ from pytest import mark
     ("BBBB", O["B"][2] * 2),
     ("CC", P["C"] * 2),
     ("DD", P["D"] * 2),
+    ("EE", P["E"] * 2),
+    ("EEB", P["E"] * 2),  # B is free
+    ("EEEB", P["E"] * 3),
+    ("EEEEBB", P["E"] * 4),  # 2B free
+    ("BEBEEE", P["E"] * 4),  # B free
     #  2E gets 1B free. Not applicable: 2B for 45.
     ("ABCDEABCDE", P["B"] * 2 + P["A"] * 2 + P["C"] * 2 + P["D"] * 2 + P["E"] * 2 - P["B"]),
     ("CCADDEEBBA", 2*P["C"] + P["A"] + 2*P["D"] + 2*P["E"] - P["B"] + 2*P["B"] + P["A"]),
@@ -221,3 +226,4 @@ def test_checkout_solution(skus, expected):
 #     def test_STX_group_offer(self):
 #         # 3S + 3T + 3X = 45 + 45 + 51 = 141
 #         assert CheckoutSolution().checkout("STX") == 45
+
