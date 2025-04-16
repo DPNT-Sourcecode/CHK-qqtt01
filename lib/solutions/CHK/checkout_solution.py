@@ -69,9 +69,18 @@ class CheckoutSolution:
         group_items = {sku: sku_count[sku] for sku in GROUP if sku in sku_count}
         if len(group_items) >= GROUP_NUM:
             # Sort them descending to discount the most expensive first
-            sorted_group_items = OrderedDict(sorted(group_items.items(), key=lambda x: PRICES[x[0]], reverse=True))
+            sorted_group_items = sorted(group_items.items(), key=lambda x: PRICES[x[0]], reverse=True)
 
-            # Form groups of 3
+            # Form groups of GROUP_NUM
+            num_groups = len(sorted_group_items) // GROUP_NUM
+            remaining_items = sorted_group_items[num_groups * GROUP_NUM:]
+
+            # Calculate total for groups
+            total += num_groups * GROUP_PRICE
+
+            # Calculate total for remaining items
+
+
 
 
 
@@ -111,6 +120,7 @@ class CheckoutSolution:
             total += count * PRICES[sku]
 
         return total
+
 
 
 
