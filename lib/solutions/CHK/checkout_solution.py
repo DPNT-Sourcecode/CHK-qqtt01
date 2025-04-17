@@ -41,7 +41,7 @@ class CheckoutSolution:
 
 
         # Handle special offers
-        def apply_buy_product_get_other_free(num, sku, free_sku = None):
+        def apply_buy_product_get_other_free(num: int, sku: str, free_sku: str | None = None):
             if free_sku is None:
                 free_sku = sku
             if sku in sku_count and free_sku in sku_count and sku_count[sku] >= num:
@@ -54,13 +54,11 @@ class CheckoutSolution:
 
 
         for free_offer in FREE_OFFERS:
-            sku = free_offer.sku
-            free_sku = free_offer.free_sku
-            if free_sku is None:
-                free_sku = sku
-            min_count = free_offer.min_count
-            if sku in sku_count and sku_count[sku] >= min_count:
-                apply_buy_product_get_other_free(min_count, sku, free_sku)
+            apply_buy_product_get_other_free(
+                free_offer.min_count,
+                free_offer.sku,
+                free_offer.free_sku
+            )
 
 
         # Handle remaining items
@@ -80,4 +78,5 @@ class CheckoutSolution:
             total += count * PRICES[sku]
 
         return total
+
 
