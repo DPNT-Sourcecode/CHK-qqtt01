@@ -117,9 +117,9 @@ class CheckoutSolution:
         """Apply cross-item offers to the basket.
 
         """
+
         for offer in CROSS_ITEM_OFFERS:
-            if offer.free_sku is None:
-                offer.free_sku = offer.sku
+            # Check if the offer is applicable
             if (offer.sku in self.sku_count
                 and offer.free_sku in self.sku_count
                 and self.sku_count[offer.sku] >= offer.min_count
@@ -127,9 +127,11 @@ class CheckoutSolution:
                 sku_num = 1
                 while sku_num < self.sku_count[offer.sku] and self.sku_count[offer.free_sku] > 0:
                     self.sku_count[offer.free_sku] = max(0, self.sku_count[offer.free_sku] - 1)
-                    if offer.free_sku == offer.sku:
-                        sku_num += 1
                     sku_num += offer.min_count
+
+                count = self.sku_count[offer.sku] // offer.min_count
+                self.sku_count[offer.free_sku] = max(0, self.sku_count[offer.free_sku] - count)
+
 
 
 
