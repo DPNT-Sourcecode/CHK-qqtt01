@@ -1,5 +1,5 @@
 from solutions.CHK.checkout_solution import CheckoutSolution
-from solutions.CHK.constants import ERROR_CODE, PRICES as P, OFFERS as O, GROUP_PRICE, GROUP_SIZE
+from solutions.CHK.constants import ERROR_CODE, PRICES as P, OFFERS as O, GROUP_PRICE
 from pytest import mark
 
 @mark.parametrize("skus, expected", [
@@ -104,5 +104,3 @@ from pytest import mark
 ])
 def test_checkout_solution(skus, expected):
     assert CheckoutSolution().checkout(skus) == expected
-
-

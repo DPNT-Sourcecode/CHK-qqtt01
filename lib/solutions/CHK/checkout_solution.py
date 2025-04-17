@@ -1,10 +1,17 @@
 from collections import defaultdict
 
-from solutions.CHK.constants import ERROR_CODE, PRICES, OFFERS, GROUP_SKUS, GROUP_PRICE, GROUP_SIZE, FREE_OFFERS
+from solutions.CHK.constants import (
+    ERROR_CODE,
+    PRICES,
+    OFFERS,
+    GROUP_SKUS,
+    GROUP_PRICE,
+    GROUP_SIZE,
+    FREE_OFFERS,
+)
 
 
 class CheckoutSolution:
-
     @staticmethod
     def _validate_skus(skus: str) -> bool:
         # Validate that skus is a string containing only alphabetic characters
@@ -39,9 +46,10 @@ class CheckoutSolution:
         for sku in sorted_group_items:
             total += PRICES[sku]
 
-
         # Handle special offers
-        def apply_buy_product_get_other_free(num: int, sku: str, free_sku: str | None = None):
+        def apply_buy_product_get_other_free(
+            num: int, sku: str, free_sku: str | None = None
+        ):
             if free_sku is None:
                 free_sku = sku
             if sku in sku_count and free_sku in sku_count and sku_count[sku] >= num:
@@ -52,14 +60,10 @@ class CheckoutSolution:
                         sku_num += 1
                     sku_num += num
 
-
         for free_offer in FREE_OFFERS:
             apply_buy_product_get_other_free(
-                free_offer.min_count,
-                free_offer.sku,
-                free_offer.free_sku
+                free_offer.min_count, free_offer.sku, free_offer.free_sku
             )
-
 
         # Handle remaining items
         for sku, count in sku_count.items():
@@ -78,5 +82,3 @@ class CheckoutSolution:
             total += count * PRICES[sku]
 
         return total
-
-
