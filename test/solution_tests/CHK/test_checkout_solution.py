@@ -87,8 +87,12 @@ from pytest import mark
     # 3U get one U free
     ("UUUU", P["U"] * 3),
     ("UUUUU", P["U"] * 4),
-
-    # ("STXYZ",)
+    # 2V for 90, 3V for 130
+    ("VV", O["V"][2]),
+    ("VVV", O["V"][3]),
+    ("VVVV", O["V"][2] * 2),
+    ("V" * 6, O["V"][3] * 2),
+    ("STXYZ",)
 ])
 def test_checkout_solution(skus, expected):
     assert CheckoutSolution().checkout(skus) == expected
@@ -251,3 +255,4 @@ def test_checkout_solution(skus, expected):
 #     def test_STX_group_offer(self):
 #         # 3S + 3T + 3X = 45 + 45 + 51 = 141
 #         assert CheckoutSolution().checkout("STX") == 45
+
