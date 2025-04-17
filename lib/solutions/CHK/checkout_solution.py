@@ -1,6 +1,7 @@
 from collections import defaultdict
 
-from solutions.CHK.constants import ERROR_CODE, PRICES, OFFERS, GROUP_SKUS, GROUP_PRICE, GROUP_SIZE
+from solutions.CHK.constants import ERROR_CODE, PRICES, OFFERS, GROUP_SKUS, GROUP_PRICE, GROUP_SIZE, FREE_OFFERS
+
 
 class CheckoutSolution:
 
@@ -51,11 +52,15 @@ class CheckoutSolution:
                         sku_num += 1
                     sku_num += num
 
-        apply_buy_product_get_other_free(2, "E", "B")
-        apply_buy_product_get_other_free(2, "F")
-        apply_buy_product_get_other_free(3, "N", "M")
-        apply_buy_product_get_other_free(2, "R", "Q")
-        apply_buy_product_get_other_free(3, "U")
+
+        for free_offer in FREE_OFFERS:
+            sku = free_offer.sku
+            free_sku = free_offer.free_sku
+            if free_sku is None:
+                free_sku = sku
+            min_count = free_offer.min_count
+            if sku in sku_count and sku_count[sku] >= min_count:
+                apply_buy_product_get_other_free(min_count, sku, free_sku)
 
 
         # Handle remaining items
@@ -75,3 +80,4 @@ class CheckoutSolution:
             total += count * PRICES[sku]
 
         return total
+
