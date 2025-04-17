@@ -99,9 +99,8 @@ class CheckoutSolution:
             print(f"Validation Failed: {e}")
             return ERROR_CODE
 
+        # Important order of operations
         self.handle_group_items()
-        # TODO(refactor): Remove this line after refactoring into instance methods
-
         self.apply_cross_item_offers()
         self.apply_same_item_offers()
 
@@ -145,6 +144,7 @@ class CheckoutSolution:
                 count = self.sku_count[offer.sku] // offer.min_count
                 # Applying the offer keeping the free items valid, i.e. above 0
                 self.sku_count[offer.free_sku] = max(0, self.sku_count[offer.free_sku] - count)
+
 
 
 
