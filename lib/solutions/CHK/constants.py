@@ -1,4 +1,5 @@
 from collections import OrderedDict
+from pydantic import BaseModel, Field
 
 ERROR_CODE = -1
 PRICES = {
@@ -38,9 +39,11 @@ OFFERS = {
     "Q": OrderedDict({3: 80}),          # 3Q for 80
     "V": OrderedDict({3: 130, 2: 90}),  # 3V for 130, 2V for 90
 }
-FREE_SKUS = {
+
+# Free items offers
 
 GROUP_SKUS = {"S", "T", "X", "Y", "Z"}
 GROUP_PRICE = 45
 GROUP_SIZE = 3
+
 
