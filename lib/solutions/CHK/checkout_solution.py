@@ -37,8 +37,8 @@ class CheckoutSolution:
             InvalidSKUError: If any SKU is invalid
 
         """
-        if self.sku_count:
         for s in skus:
+            # Extra validation to check if the SKU is valid
             if s not in PRICES:
                 raise InvalidSKUError(s)
 
@@ -54,17 +54,11 @@ class CheckoutSolution:
             return ERROR_CODE
         total = 0
         group_items = []
-        sku_count = defaultdict(int)
-        for s in skus:
-            if s not in PRICES:
-                return ERROR_CODE
-
-            # Extract group items into separate structure
-            if s in GROUP_SKUS:
-                group_items.append(s)
-            else:
-                # Count the number of each SKU
-                sku_count[s] += 1
+        try:
+            self.count_skus(skus)
+        except InvalidSKUError as e:
+            return ERROR_CODE
+        sku_count = self.sku_count
 
         # Handle group offers
         # Sort them descending to discount the most expensive first
@@ -117,4 +111,5 @@ class CheckoutSolution:
             total += count * PRICES[sku]
 
         return total
+
 
