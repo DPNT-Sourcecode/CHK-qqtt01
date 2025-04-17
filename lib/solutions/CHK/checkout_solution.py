@@ -126,10 +126,3 @@ class CheckoutSolution:
             ):
                 count = self.sku_count[offer.sku] // offer.min_count
                 self.sku_count[offer.free_sku] = max(0, self.sku_count[offer.free_sku] - count)
-
-
-
-
-
-
-

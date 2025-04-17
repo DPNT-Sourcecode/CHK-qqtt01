@@ -150,8 +150,3 @@ from pytest import mark
 )
 def test_checkout_solution(skus, expected):
     assert CheckoutSolution().checkout(skus) == expected
-
-
-
-
-
