@@ -60,10 +60,13 @@ class CheckoutSolution:
                         sku_num += 1
                     sku_num += num
 
-        for free_offer in CROSS_ITEM_OFFERS:
+        for offer in CROSS_ITEM_OFFERS:
             apply_buy_product_get_other_free(
-                free_offer.min_count, free_offer.sku, free_offer.free_sku
+                offer.min_count, offer.sku, offer.free_sku
             )
+
+        # Apply same-item offers
+
 
         # Handle remaining items
         for sku, count in sku_count.items():
@@ -82,5 +85,3 @@ class CheckoutSolution:
             total += count * PRICES[sku]
 
         return total
-
-

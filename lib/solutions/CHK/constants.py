@@ -50,8 +50,11 @@ CROSS_ITEM_OFFERS: list[FreeOffer] = [
     FreeOffer(sku="U", min_count=3),  # 3U gets 1U free
 ]
 
+SAME_ITEM_OFFERS: list[FreeOffer] = [
+    FreeOffer(sku="F", min_count=2),  # 2F gets 1F free
+    FreeOffer(sku="U", min_count=3),  # 3U gets 1U free
+]
+
 GROUP_SKUS = {"S", "T", "X", "Y", "Z"}
 GROUP_PRICE = 45
 GROUP_SIZE = 3
-
-
