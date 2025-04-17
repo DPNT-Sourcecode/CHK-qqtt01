@@ -1,5 +1,5 @@
 from solutions.CHK.checkout_solution import CheckoutSolution, PRICES as P, OFFERS as O, ERROR_CODE, GROUP_PRICE, \
-    GROUP_NUM
+    GROUP_SIZE
 from pytest import mark
 
 @mark.parametrize("skus, expected", [
@@ -94,7 +94,7 @@ from pytest import mark
     ("VVVV", O["V"][2] * 2),
     ("V" * 6, O["V"][3] * 2),
     # buy any 3 of (S,T,X,Y,Z) for 45 (GROUP_PRICE)
-    ("STXYZ", GROUP_PRICE + sum(sorted([P[p] for p in "STXYZ"], reverse=True)[:GROUP_NUM])),
+    ("STXYZ", GROUP_PRICE + sum(sorted([P[p] for p in "STXYZ"], reverse=True)[GROUP_SIZE:])),
     ("SSS", GROUP_PRICE),
     ("TTT", GROUP_PRICE),
     ("XXX", GROUP_PRICE),
@@ -262,3 +262,4 @@ def test_checkout_solution(skus, expected):
 #     def test_STX_group_offer(self):
 #         # 3S + 3T + 3X = 45 + 45 + 51 = 141
 #         assert CheckoutSolution().checkout("STX") == 45
+

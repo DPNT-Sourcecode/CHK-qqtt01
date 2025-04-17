@@ -45,9 +45,9 @@ OFFERS = {
     "V": OrderedDict({3: 130, 2: 90}),  # 3V for 130, 2V for 90
 }
 
-GROUP = {"S", "T", "X", "Y", "Z"}
+GROUP_SKUS = {"S", "T", "X", "Y", "Z"}
 GROUP_PRICE = 45
-GROUP_NUM = 3
+GROUP_SIZE = 3
 
 class CheckoutSolution:
 
@@ -69,7 +69,7 @@ class CheckoutSolution:
                 return ERROR_CODE
 
             # Extract group items into separate structure
-            if s in GROUP:
+            if s in GROUP_SKUS:
                 group_items.append(s)
             else:
                 # Count the number of each SKU
@@ -78,9 +78,9 @@ class CheckoutSolution:
         # Handle group offers
         # Sort them descending to discount the most expensive first
         sorted_group_items = sorted(group_items, key=lambda x: PRICES[x], reverse=True)
-        while len(sorted_group_items) >= GROUP_NUM:
+        while len(sorted_group_items) >= GROUP_SIZE:
             total += GROUP_PRICE
-            sorted_group_items = sorted_group_items[GROUP_NUM:]
+            sorted_group_items = sorted_group_items[GROUP_SIZE:]
         # Handle remaining group items
         for sku in sorted_group_items:
             total += PRICES[sku]
@@ -122,6 +122,7 @@ class CheckoutSolution:
             total += count * PRICES[sku]
 
         return total
+
 
 
 
