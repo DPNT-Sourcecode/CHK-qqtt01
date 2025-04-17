@@ -100,7 +100,7 @@ class CheckoutSolution:
 
         # Apply same-item offers
         for offer in SAME_ITEM_OFFERS:
-            if offer.sku in sku_count:
+            if offer.sku in sku_count and sku_count[offer.sku] >= offer.min_count:
                 count = sku_count[offer.sku]
                 free = count // offer.min_count
                 sku_count[offer.sku] -= free
@@ -120,9 +120,3 @@ class CheckoutSolution:
             total += count * PRICES[sku]
 
         return total
-
-
-
-
-
-

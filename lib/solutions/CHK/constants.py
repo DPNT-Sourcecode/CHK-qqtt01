@@ -45,7 +45,7 @@ OFFERS: dict[str: OrderedDict] = {
 CROSS_ITEM_OFFERS: list[FreeOffer] = [
     FreeOffer(sku="E", min_count=2, free_sku="B"),  # 2E gets 1B free,
     FreeOffer(sku="N", min_count=3, free_sku="M"),  # 3N gets 1M free
-    FreeOffer(sku="R", min_count=2, free_sku="Q"),  # 2R gets 1Q free
+    FreeOffer(sku="R", min_count=3, free_sku="Q"),  # 2R gets 1Q free
 ]
 
 SAME_ITEM_OFFERS: list[FreeOffer] = [
