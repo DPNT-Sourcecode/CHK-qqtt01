@@ -17,6 +17,12 @@ class CheckoutSolution:
 
     """
     def __init__(self):
+        self._reset()
+
+    def _reset(self):
+        """Reset the checkout process by clearing the total and SKU count.
+
+        """
         self.total = 0
         self.group_items = []
         self.sku_count = defaultdict(int)
@@ -47,6 +53,7 @@ class CheckoutSolution:
             InvalidSKUError: If any SKU is invalid
 
         """
+        self._reset()
         self._validate_skus(skus)
         for s in skus:
             # Extra validation to check if the SKU is valid
@@ -94,8 +101,6 @@ class CheckoutSolution:
 
         self.handle_group_items()
         # TODO(refactor): Remove this line after refactoring into instance methods
-        sku_count = self.sku_count
-        total = self.total
 
         self.apply_cross_item_offers()
         self.apply_same_item_offers()
@@ -140,6 +145,7 @@ class CheckoutSolution:
                 count = self.sku_count[offer.sku] // offer.min_count
                 # Applying the offer keeping the free items valid, i.e. above 0
                 self.sku_count[offer.free_sku] = max(0, self.sku_count[offer.free_sku] - count)
+
 
 
 
