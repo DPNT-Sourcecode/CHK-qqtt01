@@ -82,7 +82,7 @@ class CheckoutSolution:
             for sku, count in remaining_items:
                 total += count * PRICES[sku]
 
-
+            # Remove
 
 
 
@@ -122,5 +122,6 @@ class CheckoutSolution:
             total += count * PRICES[sku]
 
         return total
+
 
 
