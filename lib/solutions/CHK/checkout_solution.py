@@ -76,23 +76,14 @@ class CheckoutSolution:
                 sku_count[s] += 1
 
         # Handle group offers
-        if len(group_items) >= GROUP_NUM:
-            # Sort them descending to discount the most expensive first
-            sorted_group_items = sorted(group_items, key=lambda x: PRICES[x], reverse=True)
-
-            # Form groups of GROUP_NUM
-            num_groups = len(sorted_group_items) // GROUP_NUM
-            remaining_items = sorted_group_items[num_groups * GROUP_NUM:]
-
-            # Calculate total for groups
-            total += num_groups * GROUP_PRICE
-
-            # Calculate total for remaining items
-            for sku in remaining_items:
-                total += PRICES[sku]
-
-            # Remove
-
+        # Sort them descending to discount the most expensive first
+        sorted_group_items = sorted(group_items, key=lambda x: PRICES[x], reverse=True)
+        while len(sorted_group_items) >= GROUP_NUM:
+            total += GROUP_PRICE
+            sorted_group_items = sorted_group_items[GROUP_NUM:]
+        # Handle remaining group items
+        for sku in sorted_group_items:
+            total += PRICES[sku]
 
 
         # Handle special offers
@@ -131,6 +122,7 @@ class CheckoutSolution:
             total += count * PRICES[sku]
 
         return total
+
 
 
 
