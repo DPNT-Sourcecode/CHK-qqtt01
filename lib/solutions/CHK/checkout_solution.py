@@ -53,7 +53,7 @@ class CheckoutSolution:
             if free_sku is None:
                 free_sku = sku
             if sku in sku_count and free_sku in sku_count and sku_count[sku] >= num:
-                sku_num = 1
+                sku_num = 2 if free_sku == sku else 1
                 while sku_num < sku_count[sku] and sku_count[free_sku] > 0:
                     sku_count[free_sku] = max(0, sku_count[free_sku] - 1)
                     if free_sku == sku:
@@ -82,3 +82,4 @@ class CheckoutSolution:
             total += count * PRICES[sku]
 
         return total
+
