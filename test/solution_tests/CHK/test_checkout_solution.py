@@ -121,14 +121,17 @@ from pytest import mark
         ("V" * 6, O["V"][3] * 2),
         # buy any 3 of (S,T,X,Y,Z) for 45 (GROUP_PRICE)
         ("STXYZ", GROUP_PRICE + P["X"] + P["Y"]),
+        ("STXYZ" * 2, GROUP_PRICE * 3 + P["X"]),
         ("STXYZTSTYZXSTYXZYTSYTZXYT", 8 * GROUP_PRICE + P["X"]),
         ("SSS", GROUP_PRICE),
         ("TTT", GROUP_PRICE),
         ("XXX", GROUP_PRICE),
         ("YYY", GROUP_PRICE),
         ("ZZZ", GROUP_PRICE),
+        ("ABCDEFGHIJKLMNOPQRSTUVWXYZ", 1300),
         ("ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ", 1602),
     ],
 )
 def test_checkout_solution(skus, expected):
     assert CheckoutSolution().checkout(skus) == expected
+
