@@ -62,6 +62,9 @@ class CheckoutSolution:
         if not self._validate_skus(skus):
             return ERROR_CODE
         total = 0
+        for s in skus:
+            if s not in PRICES:
+                return ERROR_CODE
         sku_count = Counter(skus)
 
         # Handle group offers
@@ -122,6 +125,7 @@ class CheckoutSolution:
             total += count * PRICES[sku]
 
         return total
+
 
 
 
