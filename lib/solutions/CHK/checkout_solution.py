@@ -103,8 +103,8 @@ class CheckoutSolution:
         # Main price loop over prepared and precalculated offers
         for sku, count in self.sku_count.items():
 
-            # Apply special offers if available, sorted in descending order by quantity
-            # Assuming the policy is to apply the largest offer first
+            # Offers are pre-sorted in descending order by quantity
+            # to implement the policy is to apply the largest offer first
             if sku in OFFERS:
                 for offer_qty, offer_price in OFFERS[sku].items():
                     num_offers = count // offer_qty
@@ -140,6 +140,7 @@ class CheckoutSolution:
                 count = self.sku_count[offer.sku] // offer.min_count
                 # Applying the offer keeping the free items valid, i.e. above 0
                 self.sku_count[offer.free_sku] = max(0, self.sku_count[offer.free_sku] - count)
+
 
 
 
