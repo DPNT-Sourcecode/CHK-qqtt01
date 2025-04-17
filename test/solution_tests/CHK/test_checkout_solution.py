@@ -108,9 +108,11 @@ from pytest import mark
         ("Q" * 3, O["Q"][3]),
         ("Q" * 4, O["Q"][3] + P["Q"]),
         # 3R get one Q free
+        ("RRQ", P["R"] * 2 + P["Q"]),  # no discount
         ("RRRQ", P["R"] * 3),
         ("RRRQQ", P["R"] * 3 + P["Q"]),
         # 3U get one U free
+        ("UU", P["U"] * 2),  # no discount
         ("UUU", P["U"] * 3),
         ("UUUU", P["U"] * 3),
         ("UUUUU", P["U"] * 4),
@@ -118,6 +120,7 @@ from pytest import mark
         ("VV", O["V"][2]),
         ("VVV", O["V"][3]),
         ("VVVV", O["V"][2] * 2),
+        ("VVVVV", O["V"][3] + O["V"][2]),
         ("V" * 6, O["V"][3] * 2),
         # buy any 3 of (S,T,X,Y,Z) for 45 (GROUP_PRICE)
         ("STXYZ", GROUP_PRICE + P["X"] + P["Y"]),
@@ -135,3 +138,4 @@ from pytest import mark
 )
 def test_checkout_solution(skus, expected):
     assert CheckoutSolution().checkout(skus) == expected
+
