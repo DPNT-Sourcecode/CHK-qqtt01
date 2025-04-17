@@ -56,4 +56,3 @@ SAME_ITEM_OFFERS: list[FreeOffer] = [
 GROUP_SKUS = {"S", "T", "X", "Y", "Z"}
 GROUP_PRICE = 45
 GROUP_SIZE = 3
-
