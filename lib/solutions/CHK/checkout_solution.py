@@ -1,4 +1,4 @@
-from collections import Counter
+from collections import Counter, defaultdict
 
 ERROR_CODE = -1
 
@@ -62,14 +62,23 @@ class CheckoutSolution:
         if not self._validate_skus(skus):
             return ERROR_CODE
         total = 0
-        sku_count = Counter(skus)
+        group_items = []
+        sku_count = defaultdict(int)
+        for s in skus:
+            if s not in PRICES:
+                return ERROR_CODE
+
+            # Extract group items into separate structure
+            if s in GROUP:
+                group_items.append(s)
+            else:
+                # Count the number of each SKU
+                sku_count[s] += 1
 
         # Handle group offers
-        # Extract all group items from sku_count
-        group_items = {sku: sku_count[sku] for sku in GROUP if sku in sku_count}
         if len(group_items) >= GROUP_NUM:
             # Sort them descending to discount the most expensive first
-            sorted_group_items = sorted(group_items.items(), key=lambda x: PRICES[x[0]], reverse=True)
+            sorted_group_items = sorted(group_items, key=lambda x: PRICES[x], reverse=True)
 
             # Form groups of GROUP_NUM
             num_groups = len(sorted_group_items) // GROUP_NUM
@@ -122,6 +131,7 @@ class CheckoutSolution:
             total += count * PRICES[sku]
 
         return total
+
 
 
 
