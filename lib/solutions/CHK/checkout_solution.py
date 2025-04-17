@@ -88,8 +88,8 @@ class CheckoutSolution:
             total += num_groups * GROUP_PRICE
 
             # Calculate total for remaining items
-            for sku, count in remaining_items:
-                total += count * PRICES[sku]
+            for sku in remaining_items:
+                total += PRICES[sku]
 
             # Remove
 
@@ -131,6 +131,7 @@ class CheckoutSolution:
             total += count * PRICES[sku]
 
         return total
+
 
 
 
