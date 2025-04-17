@@ -29,8 +29,6 @@ class CheckoutSolution:
             return False
         return True
 
-
-
     def count_skus(self, skus: str) -> None:
         """Count the number of each SKU in the input string.
 
@@ -121,10 +119,10 @@ class CheckoutSolution:
         ):
             if free_sku is None:
                 free_sku = sku
-            if sku in sku_count and free_sku in sku_count and sku_count[sku] >= num:
+            if sku in self.sku_count and free_sku in self.sku_count and self.sku_count[sku] >= num:
                 sku_num = 1
-                while sku_num < sku_count[sku] and sku_count[free_sku] > 0:
-                    sku_count[free_sku] = max(0, sku_count[free_sku] - 1)
+                while sku_num < self.sku_count[sku] and self.sku_count[free_sku] > 0:
+                    self.sku_count[free_sku] = max(0, self.sku_count[free_sku] - 1)
                     if free_sku == sku:
                         sku_num += 1
                     sku_num += num
@@ -133,6 +131,7 @@ class CheckoutSolution:
             apply_buy_product_get_other_free(
                 offer.min_count, offer.sku, offer.free_sku
             )
+
 
 
 
