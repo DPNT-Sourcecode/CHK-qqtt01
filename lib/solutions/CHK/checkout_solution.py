@@ -76,9 +76,6 @@ class CheckoutSolution:
         sku_count = self.sku_count
         total = self.total
 
-        if skus == "ABCDEFGHIJKLMNOPQRSTUVWXYZ":
-            print()
-
         # Apply cross-item offers
         def apply_buy_product_get_other_free(
             num: int, sku: str, free_sku: str | None = None
@@ -120,3 +117,4 @@ class CheckoutSolution:
             total += count * PRICES[sku]
 
         return total
+
