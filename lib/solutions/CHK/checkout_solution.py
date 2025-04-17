@@ -68,8 +68,6 @@ class CheckoutSolution:
         # Extract all group items from sku_count
         group_items = {sku: sku_count[sku] for sku in GROUP if sku in sku_count}
         if len(group_items) >= GROUP_NUM:
-            if skus == "STXYZ":
-                print()
             # Sort them descending to discount the most expensive first
             sorted_group_items = sorted(group_items.items(), key=lambda x: PRICES[x[0]], reverse=True)
 
@@ -81,6 +79,8 @@ class CheckoutSolution:
             total += num_groups * GROUP_PRICE
 
             # Calculate total for remaining items
+            for sku, count in remaining_items:
+                total += count * PRICES[sku]
 
 
 
@@ -122,4 +122,5 @@ class CheckoutSolution:
             total += count * PRICES[sku]
 
         return total
+
 
