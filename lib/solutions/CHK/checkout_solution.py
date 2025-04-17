@@ -9,7 +9,7 @@ from solutions.CHK.constants import (
     GROUP_SIZE,
     CROSS_ITEM_OFFERS, SAME_ITEM_OFFERS,
 )
-from solutions.CHK.exceptions import InvalidSKUError
+from solutions.CHK.exceptions import InvalidSKUError, InvalidInputSKUFormatError
 
 
 class CheckoutSolution:
@@ -22,12 +22,19 @@ class CheckoutSolution:
         self.sku_count = defaultdict(int)
 
     @staticmethod
-    def _validate_skus(skus: str) -> bool:
+    def _validate_skus(skus: str):
+        """Validate that skus is a string containing only alphabetic characters.
 
-        # Validate that skus is a string containing only alphabetic characters
+        Args:
+            skus (str): A string of SKUs in the form "ABDFDFS"
+        Returns:
+            None
+        Raises:
+            InvalidInputSKUFormatError: If the input format is invalid
+
+        """
         if not isinstance(skus, str):
-            raise InvalidSKUError(skus)
-        return True
+            raise InvalidInputSKUFormatError(skus)
 
     def count_skus(self, skus: str) -> None:
         """Count the number of each SKU in the input string.
@@ -76,11 +83,13 @@ class CheckoutSolution:
             int: The total price of the items in the basket, or ERROR_CODE if invalid input
 
         """
-        if not self._validate_skus(skus):
-            return ERROR_CODE
         try:
             self.count_skus(skus)
-        except InvalidSKUError as _e:
+        except (
+            InvalidSKUError,
+            InvalidInputSKUFormatError,
+        ) as e:
+            print(f"Validation Failed: {e}")
             return ERROR_CODE
 
         self.handle_group_items()
@@ -131,5 +140,6 @@ class CheckoutSolution:
                 count = self.sku_count[offer.sku] // offer.min_count
                 # Applying the offer keeping the free items valid, i.e. above 0
                 self.sku_count[offer.free_sku] = max(0, self.sku_count[offer.free_sku] - count)
+
 
 
