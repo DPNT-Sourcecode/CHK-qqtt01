@@ -7,7 +7,7 @@ from solutions.CHK.constants import (
     GROUP_SKUS,
     GROUP_PRICE,
     GROUP_SIZE,
-    CROSS_ITEM_OFFERS,
+    CROSS_ITEM_OFFERS, SAME_ITEM_OFFERS,
 )
 
 
@@ -66,7 +66,11 @@ class CheckoutSolution:
             )
 
         # Apply same-item offers
-
+        for offer in SAME_ITEM_OFFERS:
+            if offer.sku in sku_count:
+                count = sku_count[offer.sku]
+                free = count // offer.min_count
+                sku_count[offer.sku] -= free
 
         # Handle remaining items
         for sku, count in sku_count.items():
@@ -85,3 +89,4 @@ class CheckoutSolution:
             total += count * PRICES[sku]
 
         return total
+
