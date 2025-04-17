@@ -13,6 +13,14 @@ from solutions.CHK.exceptions import InvalidSKUError
 
 
 class CheckoutSolution:
+    """Checkout class to handle the checkout process and apply offers.
+
+    """
+    def __init__(self):
+        self.total = 0
+        self.group_items = []
+        self.sku_count = defaultdict(int)
+
     @staticmethod
     def _validate_skus(skus: str) -> bool:
 
@@ -21,10 +29,7 @@ class CheckoutSolution:
             return False
         return True
 
-    def __init__(self):
-        self.total = 0
-        self.group_items = []
-        self.sku_count = defaultdict(int)
+
 
     def count_skus(self, skus: str) -> None:
         """Count the number of each SKU in the input string.
@@ -70,7 +75,8 @@ class CheckoutSolution:
             skus (str): A string of SKUs in the form "ABDFDFS"
         Returns:
             int: The total price of the items in the basket, or ERROR_CODE if invalid input
-            """
+
+        """
         if not self._validate_skus(skus):
             return ERROR_CODE
         try:
@@ -84,23 +90,7 @@ class CheckoutSolution:
         total = self.total
 
         # Apply cross-item offers
-        def apply_buy_product_get_other_free(
-            num: int, sku: str, free_sku: str | None = None
-        ):
-            if free_sku is None:
-                free_sku = sku
-            if sku in sku_count and free_sku in sku_count and sku_count[sku] >= num:
-                sku_num = 1
-                while sku_num < sku_count[sku] and sku_count[free_sku] > 0:
-                    sku_count[free_sku] = max(0, sku_count[free_sku] - 1)
-                    if free_sku == sku:
-                        sku_num += 1
-                    sku_num += num
-
-        for offer in CROSS_ITEM_OFFERS:
-            apply_buy_product_get_other_free(
-                offer.min_count, offer.sku, offer.free_sku
-            )
+        self.apply_cross_item_offers()
 
         # Apply same-item offers
         for offer in SAME_ITEM_OFFERS:
@@ -124,5 +114,25 @@ class CheckoutSolution:
             total += count * PRICES[sku]
 
         return total
+
+    def apply_cross_item_offers(self):
+        def apply_buy_product_get_other_free(
+                num: int, sku: str, free_sku: str | None = None
+        ):
+            if free_sku is None:
+                free_sku = sku
+            if sku in sku_count and free_sku in sku_count and sku_count[sku] >= num:
+                sku_num = 1
+                while sku_num < sku_count[sku] and sku_count[free_sku] > 0:
+                    sku_count[free_sku] = max(0, sku_count[free_sku] - 1)
+                    if free_sku == sku:
+                        sku_num += 1
+                    sku_num += num
+
+        for offer in CROSS_ITEM_OFFERS:
+            apply_buy_product_get_other_free(
+                offer.min_count, offer.sku, offer.free_sku
+            )
+
 
 
