@@ -94,8 +94,8 @@ from pytest import mark
     ("VVVV", O["V"][2] * 2),
     ("V" * 6, O["V"][3] * 2),
     # buy any 3 of (S,T,X,Y,Z) for 45 (GROUP_PRICE)
-    ("STXYZ", GROUP_PRICE + sum(sorted([P[p] for p in "STXYZ"], reverse=True)[GROUP_SIZE:])),
-    ("STXYZTSTYZXSTYXZYTSYTZXYT", 8 * GROUP_PRICE + sum(sorted([P[p] for p in "STXYZTSTYZXSTYXZYTSYTZXYT"], reverse=True)[GROUP_SIZE:])),
+    ("STXYZ", GROUP_PRICE + P["X"] + P["Y"]),
+    ("STXYZTSTYZXSTYXZYTSYTZXYT", 8 * GROUP_PRICE + P["X"]),
     ("SSS", GROUP_PRICE),
     ("TTT", GROUP_PRICE),
     ("XXX", GROUP_PRICE),
@@ -104,4 +104,5 @@ from pytest import mark
 ])
 def test_checkout_solution(skus, expected):
     assert CheckoutSolution().checkout(skus) == expected
+
 
