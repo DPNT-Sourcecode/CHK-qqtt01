@@ -87,15 +87,8 @@ class CheckoutSolution:
         sku_count = self.sku_count
         total = self.total
 
-        # Apply cross-item offers
         self.apply_cross_item_offers()
-
-        # Apply same-item offers
-        for offer in SAME_ITEM_OFFERS:
-            if offer.sku in sku_count and sku_count[offer.sku] >= offer.min_count:
-                count = sku_count[offer.sku]
-                free = count // offer.min_count
-                sku_count[offer.sku] -= free
+        self.apply_same_item_offers()
 
         # Handle remaining items
         for sku, count in sku_count.items():
@@ -113,16 +106,28 @@ class CheckoutSolution:
 
         return total
 
+    def apply_same_item_offers(self):
+        """Apply same-item offers to the basket.
+
+        """
+        for offer in SAME_ITEM_OFFERS:
+            if offer.sku in self.sku_count and self.sku_count[offer.sku] >= offer.min_count:
+                count = self.sku_count[offer.sku]
+                free = count // offer.min_count
+                self.sku_count[offer.sku] -= free
+
     def apply_cross_item_offers(self):
         """Apply cross-item offers to the basket.
 
         """
-
         for offer in CROSS_ITEM_OFFERS:
             # Check if the offer is applicable
             if (offer.sku in self.sku_count
                 and offer.free_sku in self.sku_count
                 and self.sku_count[offer.sku] >= offer.min_count
             ):
+                # Counting free items
                 count = self.sku_count[offer.sku] // offer.min_count
+                # Applying the offer keeping the free items valid, i.e. above 0
                 self.sku_count[offer.free_sku] = max(0, self.sku_count[offer.free_sku] - count)
+
