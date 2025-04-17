@@ -11,6 +11,14 @@ from solutions.CHK.constants import (
 )
 
 
+class InvalidSKUError(Exception):
+    """Custom exception for invalid SKU input."""
+
+    def __init__(self, sku):
+        self.sku = sku
+        super().__init__(f"Invalid SKU: {sku}")
+
+
 class CheckoutSolution:
     @staticmethod
     def _validate_skus(skus: str) -> bool:
@@ -18,6 +26,30 @@ class CheckoutSolution:
         if not isinstance(skus, str):
             return False
         return True
+
+    def __init__(self):
+        self.total = 0
+        self.group_items = []
+        self.sku_count = defaultdict(int)
+
+    def count_skus(self, skus: str) -> None:
+        """Count the number of each SKU in the input string.
+        Args:
+            skus (str): A string of SKUs in the form "ABDFDFS"
+        Returns:
+            None
+            ERROR_CODE if any SKU is invalid
+            """
+        for s in skus:
+            if s not in PRICES:
+                raise ValueError(f"Invalid SKU: {s}")
+
+            # Extract group items into separate structure
+            if s in GROUP_SKUS:
+                self.group_items.append(s)
+            else:
+                # Count the number of each SKU
+                self.sku_count[s] += 1
 
     def checkout(self, skus: str) -> int:
         if not self._validate_skus(skus):
@@ -87,4 +119,3 @@ class CheckoutSolution:
             total += count * PRICES[sku]
 
         return total
-
