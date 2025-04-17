@@ -36,7 +36,7 @@ class CheckoutSolution:
         if not isinstance(skus, str):
             raise InvalidInputSKUFormatError(skus)
 
-    def count_skus(self, skus: str) -> None:
+    def process_input(self, skus: str) -> None:
         """Count the number of each SKU in the input string.
 
         Args:
@@ -84,7 +84,7 @@ class CheckoutSolution:
 
         """
         try:
-            self.count_skus(skus)
+            self.process_input(skus)
         except (
             InvalidSKUError,
             InvalidInputSKUFormatError,
@@ -100,21 +100,21 @@ class CheckoutSolution:
         self.apply_cross_item_offers()
         self.apply_same_item_offers()
 
-        # Handle remaining items
-        for sku, count in sku_count.items():
+        # Main price loop over prepared and precalculated offers
+        for sku, count in self.sku_count.items():
 
             # Apply special offers if available, sorted in descending order by quantity
             # Assuming the policy is to apply the largest offer first
             if sku in OFFERS:
                 for offer_qty, offer_price in OFFERS[sku].items():
                     num_offers = count // offer_qty
-                    total += num_offers * offer_price
+                    self.total += num_offers * offer_price
                     count %= offer_qty
 
             # Add remaining items at normal price
-            total += count * PRICES[sku]
+            self.total += count * PRICES[sku]
 
-        return total
+        return self.total
 
     def apply_same_item_offers(self):
         """Apply same-item offers to the basket.
@@ -140,6 +140,7 @@ class CheckoutSolution:
                 count = self.sku_count[offer.sku] // offer.min_count
                 # Applying the offer keeping the free items valid, i.e. above 0
                 self.sku_count[offer.free_sku] = max(0, self.sku_count[offer.free_sku] - count)
+
 
 
 
