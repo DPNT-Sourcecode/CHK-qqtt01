@@ -64,6 +64,13 @@ class CheckoutSolution:
             self.total += PRICES[sku]
 
     def checkout(self, skus: str) -> int:
+        """Calculate the total price of the items in the basket.
+
+        Args:
+            skus (str): A string of SKUs in the form "ABDFDFS"
+        Returns:
+            int: The total price of the items in the basket, or ERROR_CODE if invalid input
+            """
         if not self._validate_skus(skus):
             return ERROR_CODE
         try:
@@ -117,4 +124,5 @@ class CheckoutSolution:
             total += count * PRICES[sku]
 
         return total
+
 

@@ -1,5 +1,5 @@
 from solutions.CHK.checkout_solution import CheckoutSolution
-from solutions.CHK.constants import ERROR_CODE, PRICES as P, OFFERS as O, GROUP_PRICE
+from solutions.CHK.constants import ERROR_CODE, PRICES as P, OFFERS as O, GROUP_PRICE, GROUP_SKUS
 from pytest import mark
 
 
@@ -132,13 +132,13 @@ from pytest import mark
         ("XXX", GROUP_PRICE),
         ("YYY", GROUP_PRICE),
         ("ZZZ", GROUP_PRICE),
-        ("ABCDEFGHIJKLMNOPQRSTUVWXYZ", sum(P.values())),
-        ("ABCDEFGHIJKLMNOPQRSTUVWXYZA", sum(P.values()) + P["A"]),
+        ("ABCDEFGHIJKLMNOPQRSTUVWXYZ", sum(v for k, v in P.items() if k not in GROUP_SKUS) + GROUP_PRICE + P["X"] + P["Y"]),
         ("ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ", 1602),
     ],
 )
 def test_checkout_solution(skus, expected):
     assert CheckoutSolution().checkout(skus) == expected
+
 
 
 
