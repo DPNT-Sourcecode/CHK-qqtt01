@@ -133,11 +133,12 @@ from pytest import mark
         ("YYY", GROUP_PRICE),
         ("ZZZ", GROUP_PRICE),
         ("ABCDEFGHIJKLMNOPQRSTUVWXYZ", sum(P.values())),
-        ("ABCDEFGHIJKLMNOPQRSTUVWXYZA", sum(P.values())),
+        ("ABCDEFGHIJKLMNOPQRSTUVWXYZA", sum(P.values()) + P["A"]),
         ("ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ", 1602),
     ],
 )
 def test_checkout_solution(skus, expected):
     assert CheckoutSolution().checkout(skus) == expected
+
 
 
