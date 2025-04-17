@@ -26,7 +26,7 @@ class CheckoutSolution:
 
         # Validate that skus is a string containing only alphabetic characters
         if not isinstance(skus, str):
-            return False
+            raise InvalidSKUError(skus)
         return True
 
     def count_skus(self, skus: str) -> None:
@@ -40,6 +40,7 @@ class CheckoutSolution:
             InvalidSKUError: If any SKU is invalid
 
         """
+        self._validate_skus(skus)
         for s in skus:
             # Extra validation to check if the SKU is valid
             if s not in PRICES:
@@ -130,4 +131,5 @@ class CheckoutSolution:
                 count = self.sku_count[offer.sku] // offer.min_count
                 # Applying the offer keeping the free items valid, i.e. above 0
                 self.sku_count[offer.free_sku] = max(0, self.sku_count[offer.free_sku] - count)
+
 
