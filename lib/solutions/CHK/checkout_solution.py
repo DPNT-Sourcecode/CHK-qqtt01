@@ -74,8 +74,6 @@ class CheckoutSolution:
 
         # Handle remaining items
         for sku, count in sku_count.items():
-            if sku not in PRICES:
-                return ERROR_CODE
 
             # Apply special offers if available, sorted in descending order by quantity
             # Assuming the policy is to apply the largest offer first
@@ -89,3 +87,4 @@ class CheckoutSolution:
             total += count * PRICES[sku]
 
         return total
+
