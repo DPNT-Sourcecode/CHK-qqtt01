@@ -49,11 +49,23 @@ class CheckoutSolution:
                 # Count the number of each SKU
                 self.sku_count[s] += 1
 
+    def handle_group_items(self) -> None:
+        """Handle group items and apply group offers.
+
+        """
+        # Sort them descending to discount the most expensive first
+        sorted_group_items = sorted(self.group_items, key=lambda x: PRICES[x], reverse=True)
+        while len(sorted_group_items) >= GROUP_SIZE:
+            self.total += GROUP_PRICE
+            sorted_group_items = sorted_group_items[GROUP_SIZE:]
+        # Handle remaining group items
+        for sku in sorted_group_items:
+            self.total += PRICES[sku]
+
     def checkout(self, skus: str) -> int:
         if not self._validate_skus(skus):
             return ERROR_CODE
         total = 0
-        group_items = []
         try:
             self.count_skus(skus)
         except InvalidSKUError as _e:
@@ -114,6 +126,7 @@ class CheckoutSolution:
             total += count * PRICES[sku]
 
         return total
+
 
 
 
