@@ -7,7 +7,7 @@ from solutions.CHK.constants import (
     GROUP_SKUS,
     GROUP_PRICE,
     GROUP_SIZE,
-    FREE_OFFERS,
+    CROSS_ITEM_OFFERS,
 )
 
 
@@ -46,21 +46,21 @@ class CheckoutSolution:
         for sku in sorted_group_items:
             total += PRICES[sku]
 
-        # Handle special offers
+        # Apply cross-item offers
         def apply_buy_product_get_other_free(
             num: int, sku: str, free_sku: str | None = None
         ):
             if free_sku is None:
                 free_sku = sku
             if sku in sku_count and free_sku in sku_count and sku_count[sku] >= num:
-                sku_num = 2 if free_sku == sku else 1
+                sku_num = 1
                 while sku_num < sku_count[sku] and sku_count[free_sku] > 0:
                     sku_count[free_sku] = max(0, sku_count[free_sku] - 1)
                     if free_sku == sku:
                         sku_num += 1
                     sku_num += num
 
-        for free_offer in FREE_OFFERS:
+        for free_offer in CROSS_ITEM_OFFERS:
             apply_buy_product_get_other_free(
                 free_offer.min_count, free_offer.sku, free_offer.free_sku
             )
@@ -82,4 +82,5 @@ class CheckoutSolution:
             total += count * PRICES[sku]
 
         return total
+
 

@@ -42,7 +42,7 @@ OFFERS: dict[str: OrderedDict] = {
 }
 
 # Free items offers
-FREE_OFFERS: list[FreeOffer] = [
+CROSS_ITEM_OFFERS: list[FreeOffer] = [
     FreeOffer(sku="E", min_count=2, free_sku="B"),  # 2E gets 1B free,
     FreeOffer(sku="F", min_count=2),  # 2F gets 1F free
     FreeOffer(sku="N", min_count=3, free_sku="M"),  # 3N gets 1M free
@@ -53,4 +53,5 @@ FREE_OFFERS: list[FreeOffer] = [
 GROUP_SKUS = {"S", "T", "X", "Y", "Z"}
 GROUP_PRICE = 45
 GROUP_SIZE = 3
+
 
