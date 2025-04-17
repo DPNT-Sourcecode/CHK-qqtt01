@@ -124,13 +124,9 @@ class CheckoutSolution:
                 and offer.free_sku in self.sku_count
                 and self.sku_count[offer.sku] >= offer.min_count
             ):
-                sku_num = 1
-                while sku_num < self.sku_count[offer.sku] and self.sku_count[offer.free_sku] > 0:
-                    self.sku_count[offer.free_sku] = max(0, self.sku_count[offer.free_sku] - 1)
-                    sku_num += offer.min_count
-
                 count = self.sku_count[offer.sku] // offer.min_count
                 self.sku_count[offer.free_sku] = max(0, self.sku_count[offer.free_sku] - count)
+
 
 
 
