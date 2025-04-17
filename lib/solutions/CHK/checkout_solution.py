@@ -56,9 +56,12 @@ class CheckoutSolution:
         group_items = []
         try:
             self.count_skus(skus)
-        except InvalidSKUError as e:
+        except InvalidSKUError as _e:
             return ERROR_CODE
+
+        # TODO(refactor): Remove this line after refactoring into instance methods
         sku_count = self.sku_count
+        group_items = self.group_items
 
         # Handle group offers
         # Sort them descending to discount the most expensive first
@@ -111,5 +114,6 @@ class CheckoutSolution:
             total += count * PRICES[sku]
 
         return total
+
 
 
