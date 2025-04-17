@@ -57,6 +57,7 @@ class CheckoutSolution:
         sorted_group_items = sorted(self.group_items, key=lambda x: PRICES[x], reverse=True)
         while len(sorted_group_items) >= GROUP_SIZE:
             self.total += GROUP_PRICE
+            # slice the head of the list removing counted GROUP_SIZE items
             sorted_group_items = sorted_group_items[GROUP_SIZE:]
         # Handle remaining group items
         for sku in sorted_group_items:
@@ -65,25 +66,16 @@ class CheckoutSolution:
     def checkout(self, skus: str) -> int:
         if not self._validate_skus(skus):
             return ERROR_CODE
-        total = 0
         try:
             self.count_skus(skus)
         except InvalidSKUError as _e:
             return ERROR_CODE
 
+        self.handle_group_items()
         # TODO(refactor): Remove this line after refactoring into instance methods
         sku_count = self.sku_count
-        group_items = self.group_items
+        total = self.total
 
-        # Handle group offers
-        # Sort them descending to discount the most expensive first
-        sorted_group_items = sorted(group_items, key=lambda x: PRICES[x], reverse=True)
-        while len(sorted_group_items) >= GROUP_SIZE:
-            total += GROUP_PRICE
-            sorted_group_items = sorted_group_items[GROUP_SIZE:]
-        # Handle remaining group items
-        for sku in sorted_group_items:
-            total += PRICES[sku]
 
         # Apply cross-item offers
         def apply_buy_product_get_other_free(
@@ -126,6 +118,7 @@ class CheckoutSolution:
             total += count * PRICES[sku]
 
         return total
+
 
 
 
