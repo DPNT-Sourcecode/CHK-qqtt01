@@ -78,7 +78,7 @@ from pytest import mark
             "AAAAAEEBAAABB",
             O["A"][5] + 2 * P["E"] - P["B"] + P["B"] + O["A"][3] + O["B"][2],
         ),
-        ("FF", P["F"]),
+        ("FF", P["F"] * 2),
         ("FFF", P["F"] * 2),
         ("FFFF", P["F"] * 3),
         ("FFFFFF", P["F"] * 4),
@@ -111,6 +111,7 @@ from pytest import mark
         ("RRRQ", P["R"] * 3),
         ("RRRQQ", P["R"] * 3 + P["Q"]),
         # 3U get one U free
+        ("UUU", P["U"] * 3),
         ("UUUU", P["U"] * 3),
         ("UUUUU", P["U"] * 4),
         # 2V for 90, 3V for 130
@@ -126,8 +127,10 @@ from pytest import mark
         ("XXX", GROUP_PRICE),
         ("YYY", GROUP_PRICE),
         ("ZZZ", GROUP_PRICE),
+        ("ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ", 1602),
     ],
 )
 def test_checkout_solution(skus, expected):
     assert CheckoutSolution().checkout(skus) == expected
+
 
