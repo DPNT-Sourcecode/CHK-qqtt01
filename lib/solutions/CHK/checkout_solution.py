@@ -86,8 +86,6 @@ class CheckoutSolution:
 
         # Handle special offers
         def apply_buy_product_get_other_free(num, sku, free_sku = None):
-            if skus == "NNNM":
-                print()
             if free_sku is None:
                 free_sku = sku
             if sku in sku_count and free_sku in sku_count and sku_count[sku] >= num:
@@ -122,4 +120,3 @@ class CheckoutSolution:
             total += count * PRICES[sku]
 
         return total
-
