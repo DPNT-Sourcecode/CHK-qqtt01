@@ -73,8 +73,14 @@ from pytest import mark
     # 2K for 120
     ("K" * 2, O["K"][2]),
     # 3N get one M free
-    ("NNNM", P["N"] * 3 + P["M"]),
+    ("NNNM", P["N"] * 3 - P["M"]),
     ("NNNNNNMM", P["N"] * 6),
+    # 5P for 200
+    ("P" * 5, O["P"][5]),
+    # 3Q for 80
+    ("Q" * 3, O["Q"][3]),
+    ("Q" * 4, O["Q"][3] + P["Q"]),
+
 
     # ("STXYZ",)
 ])
@@ -239,5 +245,6 @@ def test_checkout_solution(skus, expected):
 #     def test_STX_group_offer(self):
 #         # 3S + 3T + 3X = 45 + 45 + 51 = 141
 #         assert CheckoutSolution().checkout("STX") == 45
+
 
 
