@@ -114,23 +114,23 @@ class CheckoutSolution:
         return total
 
     def apply_cross_item_offers(self):
-        def apply_buy_product_get_other_free(
-                num: int, sku: str, free_sku: str | None = None
-        ):
-            if free_sku is None:
-                free_sku = sku
-            if sku in self.sku_count and free_sku in self.sku_count and self.sku_count[sku] >= num:
-                sku_num = 1
-                while sku_num < self.sku_count[sku] and self.sku_count[free_sku] > 0:
-                    self.sku_count[free_sku] = max(0, self.sku_count[free_sku] - 1)
-                    if free_sku == sku:
-                        sku_num += 1
-                    sku_num += num
+        """Apply cross-item offers to the basket.
 
+        """
         for offer in CROSS_ITEM_OFFERS:
-            apply_buy_product_get_other_free(
-                offer.min_count, offer.sku, offer.free_sku
-            )
+            if offer.free_sku is None:
+                offer.free_sku = offer.sku
+            if (offer.sku in self.sku_count
+                and offer.free_sku in self.sku_count
+                and self.sku_count[offer.sku] >= offer.min_count
+            ):
+                sku_num = 1
+                while sku_num < self.sku_count[offer.sku] and self.sku_count[offer.free_sku] > 0:
+                    self.sku_count[offer.free_sku] = max(0, self.sku_count[offer.free_sku] - 1)
+                    if offer.free_sku == offer.sku:
+                        sku_num += 1
+                    sku_num += offer.min_count
+
 
 
 
